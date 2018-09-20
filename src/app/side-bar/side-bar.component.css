@@ -1,0 +1,19 @@
+.sidenav {
+  text-align: center;
+}
+
+.sidenav a {
+    color: #818181;
+    display: block;
+    font-size: 15px;
+    margin-bottom: 40px;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}

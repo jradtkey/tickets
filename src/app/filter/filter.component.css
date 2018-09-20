@@ -1,0 +1,25 @@
+select {
+  width: 95%;
+  height: 30px;
+  border-radius: 1px;
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.filters {
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  background-color: #f3f3f4;
+}
+
+.btn {
+  background-color: #58cab9;
+  margin-bottom: 10px;
+}
+
+.btn:hover {
+  background-color: white;
+  color: #58cab9;
+  border: 1px solid grey;
+}

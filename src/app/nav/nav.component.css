@@ -1,0 +1,25 @@
+img {
+  height: 40px;
+  display: block;
+  margin-left: 10px;
+}
+h3 {
+  text-align: right;
+}
+
+#nav {
+  margin-bottom: 20px;
+  background-color: white;
+  height: 90px;
+  border: 1px dotted red;
+  padding: 20px;
+}
+
+td {
+  text-align: center;
+}
+
+#user {
+  text-align: right;
+  margin-top: 5px;
+}

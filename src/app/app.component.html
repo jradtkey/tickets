@@ -1,0 +1,16 @@
+<app-nav></app-nav>
+
+
+
+  <!-- <app-filter class="filter"></app-filter> -->
+
+<aside class="left" id="left">
+  <app-side-bar></app-side-bar>
+</aside>
+<aside class="right">
+  <app-filter class="filter"></app-filter>
+</aside>
+<div class="middle-content" [ngStyle]="{'width': form_width}">
+  <app-ticket-create></app-ticket-create>
+  <app-ticket-list></app-ticket-list>
+</div>

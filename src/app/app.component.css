@@ -1,0 +1,32 @@
+/*.ticket_create {
+  display: inline-block;
+  vertical-align: top;
+}*/
+
+.filter {
+  display: inline-block;
+  vertical-align: top;
+  text-align: right;
+}
+
+.nav {
+  display: inline-block;
+}
+
+.middle-content {
+  display: block;
+  vertical-align: top;
+  margin-left: 100px;
+}
+
+.left {
+  margin-top: 25px;
+   width: 100px;
+   float: left;
+}
+
+.right {
+   width: 175px;
+   float: right;
+   border: 1px dotted red;
+}

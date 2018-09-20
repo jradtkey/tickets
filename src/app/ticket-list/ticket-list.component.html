@@ -1,0 +1,55 @@
+<div *ngFor="let ticket of tickets" id="ticket">
+  <div class="row" id="top">
+
+
+    <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+
+      <img src={{ticket.platformImage}} alt="">
+
+      <table class="new">
+        <tr>
+          <td>
+            <h3 (click)="toggleNotes()">{{ticket.inquiryType}} from {{ticket.firstName}} {{ticket.lastName}}: {{ticket.checkIn}} to {{ticket.checkOut}}</h3>
+          </td>
+
+        </tr>
+        <tr>
+          <td>
+            {{ticket.property}} | Account Type | {{ticket.propertyOwner}}
+          </td>
+
+        </tr>
+      </table>
+    </div>
+
+    <div class="dropdowns" class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+      <select class="" name="">
+        <option>{{ticket.status}}</option>
+        <option>Awaiting owner response</option>
+        <option>Awaiting guest response</option>
+      </select><br>
+      <select class="" name="">
+        <option>{{ticket.status}}</option>
+        <option>Awaiting owner response</option>
+        <option>Awaiting guest response</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="dropdown" *ngIf="dropdown!=1">
+    <div class="row" id="checklist">
+      Checklist
+    </div>
+    <div id="bottom">
+      <div class="row">
+        Notes
+      </div>
+      <div class="row">
+        <textarea name="name" rows="2" cols="80" id="noteInput"></textarea>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-info" name="button">EDIT</button>
+  <button type="button" class="btn btn-danger" name="button">DELETE</button>
+</div>

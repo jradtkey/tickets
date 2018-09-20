@@ -1,0 +1,39 @@
+
+<div id="form">
+
+  <form (submit)="onCreateTicket(ticketForm)" #ticketForm="ngForm" name="newTicket">
+
+    <div id="form-box">
+      <label>Platform:</label>
+      <input name="platform" ngModel class="form-control">
+      <label>Inquiry Type:</label>
+      <input name="inquiry_type" ngModel class="form-control">
+    </div>
+
+
+    <div id="form-box">
+      <label>Guest First Name:</label>
+      <input name="guest_first_name" ngModel class="form-control" required #guestFirstName="ngModel" placeholder="required">
+      <label>Guest Last Name:</label>
+      <input name="guest_last_name" ngModel class="form-control" required #guestLastName="ngModel" placeholder="required">
+    </div>
+
+    <div id="form-box">
+      <label>Check In:</label>
+      <input name="check_in" ngModel class="form-control" type="date">
+      <label>Check Out:</label>
+      <input name="check_out" ngModel class="form-control" type="date">
+    </div>
+
+    <div id="form-box">
+      <label>Property Address:</label>
+      <input name="property" ngModel class="form-control" required #property="ngModel" placeholder="required">
+      <label>Property Owner:</label>
+      <input name="property_owner" ngModel class="form-control" required #propertyOwner="ngModel" placeholder="required">
+    </div>
+
+    <button type="submit" class="btn"><i class="fas fa-plus"></i></button>
+
+  </form>
+
+</div>
