@@ -19,7 +19,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
   dropdown = 1;
 
   ngOnInit() {
-    this.tickets = this.ticketService.getTickets();
+    this.ticketService.getTickets();
     this.ticketsSub = this.ticketService.getTicketUpdateListener()
       .subscribe((tickets: Ticket[]) => {
         this.tickets = tickets;

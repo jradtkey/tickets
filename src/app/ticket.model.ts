@@ -1,4 +1,5 @@
 export interface Ticket {
+  id: string,
   platform: string,
   inquiryType: string,
   firstName: string,
