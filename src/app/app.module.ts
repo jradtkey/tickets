@@ -11,6 +11,8 @@ import { TicketListComponent } from './ticket-list/ticket-list.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatExpansionModule } from "@angular/material";
+import { PropertyCreateComponent } from './property-create/property-create.component';
+import { AppRoutingModule } from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -19,10 +21,12 @@ import { MatToolbarModule, MatExpansionModule } from "@angular/material";
     NavComponent,
     FilterComponent,
     TicketListComponent,
-    SideBarComponent
+    SideBarComponent,
+    PropertyCreateComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
     MatToolbarModule,

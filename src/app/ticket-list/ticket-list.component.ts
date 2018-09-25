@@ -16,9 +16,11 @@ export class TicketListComponent implements OnInit, OnDestroy {
 
   constructor(public ticketService: TicketService) { }
 
-  dropdown = 1;
+  ticketId = '';
+  dropdown = 'up';
 
   ngOnInit() {
+    console.log("here")
     this.ticketService.getTickets();
     this.ticketsSub = this.ticketService.getTicketUpdateListener()
       .subscribe((tickets: Ticket[]) => {
@@ -26,13 +28,19 @@ export class TicketListComponent implements OnInit, OnDestroy {
       });
   }
 
-  toggleNotes(){
-    if (this.dropdown == 1) {
-      this.dropdown = 2;
+  toggleNotes(ticketId){
+    if (this.dropdown != ticketId) {
+      this.dropdown = ticketId;
+      console.log('down')
     }
     else {
-      this.dropdown = 1;
+      this.dropdown = 'up'
+      console.log('up')
     }
+  }
+
+  onDelete(ticketId: string){
+    this.ticketService.deleteTicket(ticketId);
   }
 
   ngOnDestroy() {

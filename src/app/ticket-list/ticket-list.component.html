@@ -9,7 +9,7 @@
       <table class="new">
         <tr>
           <td>
-            <h3 (click)="toggleNotes()">{{ticket.inquiryType}} from {{ticket.firstName}} {{ticket.lastName}}: {{ticket.checkIn}} to {{ticket.checkOut}}</h3>
+            <h3 (click)="toggleNotes(ticket.id)">{{ticket.inquiryType}} from {{ticket.guestName}}: {{ticket.checkIn}} to {{ticket.checkOut}}</h3>
           </td>
 
         </tr>
@@ -37,7 +37,7 @@
 
   </div>
 
-  <div class="dropdown" *ngIf="dropdown!=1">
+  <div class="dropdown" *ngIf="dropdown == ticket.id">
     <div class="row" id="checklist">
       Checklist
     </div>
@@ -50,7 +50,7 @@
       </div>
     </div>
     <button type="button" class="btn btn-info" name="button">EDIT</button>
-    <button type="button" class="btn btn-danger" name="button">DELETE</button>
+    <button type="button" class="btn btn-danger" name="button" (click)="onDelete(ticket.id)">DELETE</button>
   </div>
 
 </div>

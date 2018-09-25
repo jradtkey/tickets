@@ -1,7 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const Ticket = require('./models/ticket');
 
 const app = express();
+
+mongoose.connect("mongodb://testradtkey:oICOMVKA82s3vVhVoRK0DgLM1vBkoLdE8BRolhQTJJywUPvIpLTMIxVVX85K6PDUN6QY7aLakjgdfVWVtNLn0g==@testradtkey.documents.azure.com:10255/?ssl=true&replicaSet=globaldb", { useNewUrlParser: true })
+  .then(() => {
+    console.log('Connected to database');
+  })
+  .catch(() => {
+    console.log('Connection failed');
+  })
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -20,46 +30,41 @@ app.use((req, res, next) => {
 })
 
 app.post("/api/tickets", (req, res, next) => {
-  const ticket = req.body;
-  console.log(ticket);
-  res.status(201).json({
-    message: 'ticket added'
+  const ticket = new Ticket({
+    platform: req.body.platform,
+    inquiryType: req.body.inquiryType,
+    guestName: req.body.guestName,
+    checkIn: req.body.checkIn,
+    checkOut: req.body.checkOut,
+    property: req.body.property,
+    propertyOwner: req.body.propertyOwner,
+    platformImage: req.body.platformImage,
+    status: req.body.status
   });
+  console.log(ticket);
+  ticket.save().then(createdTicket => {
+    res.status(201).json({
+      message: 'ticket added',
+      ticketId: createdTicket._id
+    });
+  });
+
 })
 
 app.get('/api/tickets',(req, res, next) => {
-  const tickets = [
-    {
-      id: '8ew9e8n9w9b8oi',
-      platform: 'VRBO',
-      inquiryType: 'Inquiry',
-      firstName: 'Bob',
-      lastName: 'Henry',
-      checkIn: '12-02-2018',
-      checkOut: '12-05-2018',
-      property: '1328 Scott St',
-      propertyOwner: 'Joseph Sartuche',
-      platformImage: "https://drive.google.com/thumbnail?id=17Rxa0hF9_5FcGsFTvTu0xGp72PBntj8x",
-      status: 'Waiting on guest'
-    },
-    {
-      id: '9834hsv4g3g4',
-      platform: 'Airbnb',
-      inquiryType: 'Booking Request',
-      firstName: 'Jess',
-      lastName: 'Mott',
-      checkIn: '11-20-2018',
-      checkOut: '11-25-2018',
-      property: '9416 Clemente',
-      propertyOwner: 'Yvonne Phun',
-      platformImage: "https://drive.google.com/thumbnail?id=1g_qFKFiu0xHonp68pPevLlzuf8iMN7Ky",
-      status: 'Waiting on owner'
-    }
-  ]
-  res.status(200).json({
-    message: 'Tickets fetched succesfully',
-    tickets: tickets
+  Ticket.find().then(documents => {
+    res.status(200).json({
+      message: 'Tickets fetched succesfully',
+      tickets: documents
+    });
   });
+});
+
+app.delete('/api/tickets/:id', (req, res, next) => {
+  Ticket.deleteOne({_id: req.params.id}).then(result => {
+    console.log(result);
+    res.status(200).json({ message: 'Ticket deleted' });
+  })
 })
 
 module.exports = app;
