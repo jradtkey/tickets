@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
   );
   next();
 })
@@ -48,8 +48,26 @@ app.post("/api/tickets", (req, res, next) => {
       ticketId: createdTicket._id
     });
   });
+});
 
-})
+app.put("/api/tickets/:id", (req, res, next) => {
+  const ticket = new Ticket({
+    _id: req.body.id,
+    platform: req.body.platform,
+    inquiryType: req.body.inquiryType,
+    guestName: req.body.guestName,
+    checkIn: req.body.checkIn,
+    checkOut: req.body.checkOut,
+    property: req.body.property,
+    propertyOwner: req.body.propertyOwner,
+    platformImage: req.body.platformImage,
+    status: req.body.status
+  });
+  Ticket.updateOne({_id: req.params.id}, ticket).then(result => {
+    console.log(result);
+    res.status(200).json({message: 'Update successful!'});
+  })
+});
 
 app.get('/api/tickets',(req, res, next) => {
   Ticket.find().then(documents => {

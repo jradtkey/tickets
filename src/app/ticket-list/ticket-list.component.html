@@ -49,8 +49,52 @@
         <textarea name="name" rows="2" cols="80" id="noteInput"></textarea>
       </div>
     </div>
-    <button type="button" class="btn btn-info" name="button">EDIT</button>
+    <button type="button" class="btn btn-info" name="button" (click)="onEdit(ticket.id)">EDIT</button>
     <button type="button" class="btn btn-danger" name="button" (click)="onDelete(ticket.id)">DELETE</button>
   </div>
 
+</div>
+
+<div id="myModal" class="modal" *ngIf="modal == true">
+    <div class="modal-content">
+        <span class="close" (click)="close()">&times;</span>
+
+        <div id="form">
+
+          <form (submit)="onEditTicket(ticketForm, ticket.id, ticket.status)" #ticketForm="ngForm" name="newTicket">
+
+            <div id="form-box">
+              <label>Platform:</label>
+              <input name="platform" [ngModel]="ticket.platform" class="form-control">
+              <label>Inquiry Type:</label>
+              <input name="inquiry_type" [ngModel]="ticket.inquiryType" class="form-control">
+            </div>
+
+
+            <div id="form-box">
+              <label>Guest Name:</label>
+              <input name="guest_name" [ngModel]="ticket.guestName" class="form-control" required #guestFirstName="ngModel" placeholder="required">
+            </div>
+
+            <div id="form-box">
+              <label>Check In:</label>
+              <input name="check_in" [ngModel]="ticket.checkIn" class="form-control" type="date">
+              <label>Check Out:</label>
+              <input name="check_out" [ngModel]="ticket.checkOut" class="form-control" type="date">
+            </div>
+
+            <div id="form-box">
+              <label>Property Address:</label>
+              <input name="property" [ngModel]="ticket.property" class="form-control" required #property="ngModel" placeholder="required">
+              <label>Property Owner:</label>
+              <input name="property_owner" [ngModel]="ticket.propertyOwner" class="form-control" required #propertyOwner="ngModel" placeholder="required">
+            </div>
+
+            <button type="submit" class="btn"><i class="fas fa-plus"></i></button>
+
+          </form>
+
+        </div>
+
+    </div>
 </div>

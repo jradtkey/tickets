@@ -45,6 +45,10 @@ export class TicketService {
     return this.ticketsUpdated.asObservable();
   }
 
+  getTicket(id: string) {
+    return {...this.tickets.find(t => t.id === id)};
+  }
+
   addTicket(platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, status: string){
 
     const ticket: Ticket = {
@@ -66,6 +70,24 @@ export class TicketService {
         this.tickets.push(ticket);
         this.ticketsUpdated.next([...this.tickets])
       });
+  }
+
+  updateTicket(id: string, platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, status: string) {
+
+    const ticket: Ticket = {
+      id: id,
+      platform: platform,
+      inquiryType: inquiryType,
+      guestName: guestName,
+      checkIn: checkIn,
+      checkOut: checkOut,
+      property: property,
+      propertyOwner: propertyOwner,
+      platformImage: platformImage,
+      status: status
+    };
+    this.http.put('http://localhost:3000/api/tickets/' + id, ticket)
+      .subscribe((response => console.log(response)))
   }
 
   deleteTicket(ticketId: string) {
