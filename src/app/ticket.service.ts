@@ -30,6 +30,8 @@ export class TicketService {
             property: ticket.property,
             propertyOwner: ticket.propertyOwner,
             platformImage: ticket.platformImage,
+            accountType: ticket.accountType,
+            assignedTo: ticket.assignedTo,
             status: ticket.status,
             id: ticket._id
           }
@@ -49,7 +51,7 @@ export class TicketService {
     return {...this.tickets.find(t => t.id === id)};
   }
 
-  addTicket(platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, status: string){
+  addTicket(platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, accountType: string, status: string, assignedTo: string){
 
     const ticket: Ticket = {
       id: null,
@@ -61,6 +63,8 @@ export class TicketService {
       property: property,
       propertyOwner: propertyOwner,
       platformImage: platformImage,
+      accountType: accountType,
+      assignedTo: assignedTo,
       status: status
     };
     this.http.post<{message: string, ticketId: string}>('http://localhost:3000/api/tickets', ticket)
@@ -72,7 +76,7 @@ export class TicketService {
       });
   }
 
-  updateTicket(id: string, platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, status: string) {
+  updateTicket(id: string, platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, status: string, accountType: string, assignedTo: string) {
 
     const ticket: Ticket = {
       id: id,
@@ -84,10 +88,18 @@ export class TicketService {
       property: property,
       propertyOwner: propertyOwner,
       platformImage: platformImage,
+      accountType: accountType,
+      assignedTo: assignedTo,
       status: status
     };
     this.http.put('http://localhost:3000/api/tickets/' + id, ticket)
-      .subscribe((response => console.log(response)))
+      .subscribe((response => {
+        const updatedTickets = [...this.tickets];
+        const oldTicketIndex = updatedTickets.findIndex(t => t.id === ticket.id);
+        updatedTickets[oldTicketIndex] = ticket;
+        this.tickets = updatedTickets;
+        this.ticketsUpdated.next([...this.tickets]);
+      }))
   }
 
   deleteTicket(ticketId: string) {

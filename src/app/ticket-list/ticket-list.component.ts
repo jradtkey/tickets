@@ -63,7 +63,9 @@ export class TicketListComponent implements OnInit, OnDestroy {
     else if (form.value.platform == 'Booking.com'){
       this.enteredPlatformImage = "https://drive.google.com/thumbnail?id=1rER6gOj6cKfHqAIbQoryI-Av8RabD07s"
     }
-    this.ticketService.updateTicket(id, form.value.platform, form.value.inquiry_type, form.value.guest_name, form.value.check_in, form.value.check_out, form.value.property, form.value.property_owner, this.enteredPlatformImage, status);
+    this.ticketService.updateTicket(id, form.value.platform, form.value.inquiry_type, form.value.guest_name, form.value.check_in, form.value.check_out, form.value.property, form.value.property_owner, this.enteredPlatformImage, status, 'Account Type', 'User');
+
+    this.close();
   }
 
   close(){

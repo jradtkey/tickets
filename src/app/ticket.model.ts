@@ -8,5 +8,7 @@ export interface Ticket {
   property: string,
   propertyOwner: string,
   platformImage: string,
+  accountType: string,
+  assignedTo: string,
   status: string
 }

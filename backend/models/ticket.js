@@ -8,7 +8,9 @@ const ticketSchema = mongoose.Schema({
   checkOut: String,
   property: {type: String, required: true},
   propertyOwner: {type: String, required: true},
+  accountType: String,
   platformImage: String,
+  assignedTo: String,
   status: String
 })
 
