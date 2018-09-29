@@ -13,6 +13,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatExpansionModule } from "@angular/material";
 import { PropertyCreateComponent } from './property-create/property-create.component';
 import { AppRoutingModule } from "./app-routing.module";
+import { OwnerCreateComponent } from './owner-create/owner-create.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { AppRoutingModule } from "./app-routing.module";
     FilterComponent,
     TicketListComponent,
     SideBarComponent,
-    PropertyCreateComponent
+    PropertyCreateComponent,
+    OwnerCreateComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

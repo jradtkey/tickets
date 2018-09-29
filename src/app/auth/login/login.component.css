@@ -1,0 +1,17 @@
+#logInForm, #signUpForm {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+}
+
+button {
+  margin-top: 10px;
+  border: 1px solid grey;
+  margin-bottom: 20px;
+}
+
+
+a {
+  cursor: pointer;
+}

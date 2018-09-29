@@ -1,0 +1,50 @@
+<div id="logInForm" *ngIf="login">
+
+  <form (submit)="onSubmit(userForm)" #userForm="ngForm">
+
+    <div>
+      <label>Email:</label>
+      <input name="email" ngModel class="form-control" required #email="ngModel" type="email" email>
+    </div>
+
+    <div>
+      <label>Password:</label>
+      <input name="password" ngModel class="form-control" type="password" #password="ngModel">
+    </div>
+
+    <button type="submit" class="btn">Submit</button>
+
+  </form>
+
+  <a (click)="switch()">Not a user?</a>
+
+</div>
+
+<div id="signUpForm" *ngIf="!login">
+
+  <form (submit)="onCreateUser(userForm)" #userForm="ngForm">
+
+    <div id="form-box">
+      <label>Name:</label>
+      <input name="name" ngModel class="form-control" required #name="ngModel">
+      <label>Email:</label>
+      <input name="email" ngModel class="form-control" required #email="ngModel" type="email" email>
+    </div>
+    <p *ngIf="email.invalid && (email.dirty || email.touched)">Invalid Email</p>
+
+    <div id="form-box">
+      <label>Password:</label>
+      <input name="password" ngModel class="form-control" type="password" placeholder="required" #password="ngModel">
+      <label>Confirm Password:</label>
+      <input name="confirm_password" ngModel class="form-control" type="password" placeholder="required" #confirm_password="ngModel">
+      <p *ngIf="match == false">Passwords don't match</p>
+    </div>
+
+
+    <button type="submit" class="btn">Sign Up</button>
+
+  </form>
+
+  <a (click)="switch()">Already a user?</a>
+
+</div>
