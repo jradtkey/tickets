@@ -1,3 +1,77 @@
+<aside class="right">
+  <div class="filter">
+    <p style="margin-right: 10px;">Filters</p>
+    <div class="filters">
+      <label >Status</label>
+      <select>
+        <option>Unresolved</option>
+        <option>Awaiting owner approval</option>
+        <option>Awaiting guest approval</option>
+        <option>Booked</option>
+        <option>Lost</option>
+        <option>Canceled</option>
+      </select>
+      <label>Agent</label>
+      <select>
+        <option>All Agents</option>
+        <option>Jared</option>
+        <option>Juan</option>
+        <option>Eleazar</option>
+      </select>
+      <label>Platform</label>
+      <select>
+        <option>All Platforms</option>
+        <option>Airbnb - VJ</option>
+        <option>Airbnb - Owner</option>
+        <option>VRBO - VJ</option>
+        <option>VRBO - Owner</option>
+        <option>HomeAway</option>
+        <option>TripAdvisor</option>
+      </select>
+      <button type="button" class="btn2">Update</button>
+    </div>
+  </div>
+</aside>
+
+<div id="form">
+
+  <form (submit)="onCreateTicket(ticketForm)" #ticketForm="ngForm" name="newTicket">
+    <div class="row">
+
+
+      <div id="form-box" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <label>Platform:</label>
+        <input name="platform" ngModel class="form-control">
+        <label>Inquiry Type:</label>
+        <input name="inquiry_type" ngModel class="form-control">
+      </div>
+
+      <div id="form-box" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <label>Guest Name:</label>
+        <input name="guest_name" ngModel class="form-control" required #guestFirstName="ngModel" placeholder="required">
+        <label>Property Address:</label>
+        <input name="property" ngModel class="form-control" required #property="ngModel" placeholder="required">
+        <label>Property Owner:</label>
+        <input name="property_owner" ngModel class="form-control" required #propertyOwner="ngModel" placeholder="required">
+      </div>
+
+      <div id="form-box" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <label>Check In:</label>
+        <input name="check_in" ngModel class="form-control" type="date">
+        <label>Check Out:</label>
+        <input name="check_out" ngModel class="form-control" type="date">
+        <button type="submit" class="btn1">Create Ticket   <i class="fas fa-plus"></i></button>
+      </div>
+
+
+
+
+
+    </div>
+  </form>
+
+</div>
+
 <div *ngFor="let ticket of tickets" id="ticket">
   <div class="row" id="top">
 
@@ -90,7 +164,7 @@
               <input name="property_owner" [ngModel]="ticket.propertyOwner" class="form-control" required #propertyOwner="ngModel" placeholder="required">
             </div>
 
-            <button type="submit" class="btn"><i class="fas fa-plus"></i></button>
+            <button type="submit" class="btn1">Update</button>
 
           </form>
 

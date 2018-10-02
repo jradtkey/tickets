@@ -1,8 +1,9 @@
 const express = require('express');
 const Ticket = require('../models/ticket');
 const router = express.Router();
+const checkAuth = require("../middleware/check-auth");
 
-router.post("", (req, res, next) => {
+router.post("", checkAuth, (req, res, next) => {
   const ticket = new Ticket({
     platform: req.body.platform,
     inquiryType: req.body.inquiryType,
@@ -25,7 +26,7 @@ router.post("", (req, res, next) => {
   });
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", checkAuth, (req, res, next) => {
   const ticket = new Ticket({
     _id: req.body.id,
     platform: req.body.platform,
@@ -46,7 +47,7 @@ router.put("/:id", (req, res, next) => {
   })
 });
 
-router.get('',(req, res, next) => {
+router.get('', (req, res, next) => {
   Ticket.find().then(documents => {
     res.status(200).json({
       message: 'Tickets fetched succesfully',

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
+import { User } from '../../user.model';
 import { UserService } from '../../user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -10,16 +11,27 @@ import { UserService } from '../../user.service';
 })
 export class LoginComponent implements OnInit {
 
+  users: User[] = [];
+  user: User;
+  private usersSub: Subscription;
+
+
   constructor(public userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getUsers();
+    this.usersSub = this.userService.getUserUpdateListener()
+      .subscribe((users: User[]) => {
+        this.users = users;
+      });
   }
 
   login = true;
   match = true;
 
-  onSubmit(form:NgForm){
+  userLogin(form:NgForm){
     console.log(form.value)
+    this.userService.login(form.value.email, form.value.password);
     form.resetForm();
   }
 

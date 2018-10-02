@@ -1,8 +1,9 @@
 #logInForm, #signUpForm {
   margin: auto;
   width: 50%;
-  border: 3px solid green;
+  border: 1px solid grey;
   padding: 10px;
+  border-radius: 10px;
 }
 
 button {

@@ -1,6 +1,6 @@
 <div id="logInForm" *ngIf="login">
 
-  <form (submit)="onSubmit(userForm)" #userForm="ngForm">
+  <form (submit)="userLogin(logInForm)" #logInForm="ngForm">
 
     <div>
       <label>Email:</label>
@@ -47,4 +47,8 @@
 
   <a (click)="switch()">Already a user?</a>
 
+</div>
+
+<div *ngFor="let user of users">
+  <p>{{user.name}} - {{user.email}} - {{user.password}}</p>
 </div>
