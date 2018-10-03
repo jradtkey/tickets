@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
   match = true;
 
   userLogin(form:NgForm){
-    console.log(form.value)
     this.userService.login(form.value.email, form.value.password);
     form.resetForm();
   }

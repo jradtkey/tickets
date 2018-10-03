@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+var jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -15,9 +15,11 @@ router.post("/signUp", (req, res, next) => {
       });
 
       user.save().then(result => {
+          const token = jwt.sign({ email: result.email, userId: result._id }, 'this_is_a_secret_code_that_i_need_to_add', {expiresIn: 86400});
           res.status(201).json({
           message: "user created",
-          result: result
+          result: result,
+          token: token
           });
         })
         .catch(err => {
@@ -30,33 +32,34 @@ router.post("/signUp", (req, res, next) => {
 });
 
 router.post("/login", (req, res, next) => {
+  var fetchedUser;
   User.findOne({email: req.body.email})
     .then(user => {
       if (!user) {
         return res.status(401).json({
-          message: "Login Failed"
+          message: "User doesn't exist"
         })
       }
-      console.log("user:", user);
+      fetchedUser = user;
       return bcrypt.compare(req.body.password, user.password);
     })
     .then(result => {
       if(!result) {
         return res.status(401).json({
-          message: "Login Failed 1"
+          message: "Incorrect Password"
         });
       }
 
-      // const token = jwt.sign({ email: user.email, userId: user._id }, 'this_is_a_secret_code_that_i_need_to_add', {expiresIn: 86400});
+      const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser._id }, 'this_is_a_secret_code_that_i_need_to_add', {expiresIn: 86400});
 
-      console.log(jwt.sign);
+
       res.status(200).json({
         token: token
       });
     })
     .catch(err => {
       return res.status(401).json({
-        message: "Login Failed 2"
+        message: "Token failed"
       });
     })
 })

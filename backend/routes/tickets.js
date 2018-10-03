@@ -56,7 +56,7 @@ router.get('', (req, res, next) => {
   });
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', checkAuth, (req, res, next) => {
   Ticket.deleteOne({_id: req.params.id}).then(result => {
     console.log(result);
     res.status(200).json({ message: 'Ticket deleted' });

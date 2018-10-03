@@ -62,7 +62,7 @@ export class UserService {
     }
     this.http.post("http://localhost:3000/api/users/signUp", user)
       .subscribe(response => {
-        console.log(response)
+        console.log("response:", response)
       })
   }
 }
