@@ -33,7 +33,7 @@
   </div>
 </aside>
 
-<div id="form">
+<div id="form" *ngIf="userIsAuthenticated">
 
   <form (submit)="onCreateTicket(ticketForm)" #ticketForm="ngForm" name="newTicket">
     <div class="row">
@@ -123,8 +123,8 @@
         <textarea name="name" rows="2" cols="80" id="noteInput"></textarea>
       </div>
     </div>
-    <button type="button" class="btn btn-info" name="button" (click)="onEdit(ticket.id)">EDIT</button>
-    <button type="button" class="btn btn-danger" name="button" (click)="onDelete(ticket.id)">DELETE</button>
+    <button *ngIf="userIsAuthenticated" type="button" class="btn btn-info" name="button" (click)="onEdit(ticket.id)">EDIT</button>
+    <button *ngIf="userIsAuthenticated" type="button" class="btn btn-danger" name="button" (click)="onDelete(ticket.id)">DELETE</button>
   </div>
 
 </div>

@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { Ticket } from '../ticket.model';
 import { TicketService } from '../ticket.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-ticket-list',
@@ -13,21 +14,30 @@ export class TicketListComponent implements OnInit, OnDestroy {
 
   tickets: Ticket[] = [];
   ticket: Ticket;
+  userIsAuthenticated = false;
   private ticketsSub: Subscription;
+  private authStatusSub: Subscription;
 
 
-  constructor(public ticketService: TicketService) { }
+  constructor(public ticketService: TicketService, private userService: UserService) { }
 
   ticketId = '';
   dropdown = 'up';
   modal = false;
   enteredPlatformImage = '';
 
+
   ngOnInit() {
     this.ticketService.getTickets();
     this.ticketsSub = this.ticketService.getTicketUpdateListener()
       .subscribe((tickets: Ticket[]) => {
         this.tickets = tickets;
+      });
+    this.userIsAuthenticated = this.userService.getIsAuth()
+    this.authStatusSub = this.userService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
       });
   }
 
@@ -67,9 +77,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
     this.ticketService.deleteTicket(ticketId);
   }
 
-  ngOnDestroy() {
-    this.ticketsSub.unsubscribe();
-  }
+
 
   onEdit(ticketId) {
     this.ticket = this.ticketService.getTicket(ticketId);
@@ -93,6 +101,11 @@ export class TicketListComponent implements OnInit, OnDestroy {
 
   close(){
     this.modal = false;
+  }
+
+  ngOnDestroy() {
+    this.ticketsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
 }

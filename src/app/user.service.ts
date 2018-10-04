@@ -3,16 +3,33 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { User } from './user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient, private router: Router) { }
+  private isAuthenticated = false;
   private users: User[] = [];
   private usersUpdated = new Subject<User[]>();
+  private authStatusListener = new Subject<boolean>()
+
+  private token: string;
+
+
+  getToken() {
+    return this.token;
+  }
+
+  getIsAuth() {
+    return this.isAuthenticated;
+  }
+
+  getAuthStatusListener(){
+    return this.authStatusListener.asObservable()
+  }
 
   getUsers(){
     this.http
@@ -40,10 +57,7 @@ export class UserService {
   }
 
 
-  private token: string;
-  getToken() {
-    return this.token;
-  }
+
 
   login(email: string, password: string){
     const user = {email: email, password: password};
@@ -51,6 +65,11 @@ export class UserService {
       .subscribe(response => {
         const token = response.token;
         this.token = token;
+        if (token) {
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
+          this.router.navigate(['/tickets']);
+        }
       })
   }
 
@@ -64,5 +83,12 @@ export class UserService {
       .subscribe(response => {
         console.log("response:", response)
       })
+  }
+
+  logout(){
+    this.token = null;
+    this.isAuthenticated = false;
+    this.authStatusListener.next(false);
+    this.router.navigate(['/'])
   }
 }

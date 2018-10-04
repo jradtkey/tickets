@@ -1,3 +1,12 @@
 <mat-toolbar color="primary" style="background-color: #58cab9;">
-  <h3>Inquiry Tracker</h3>
+  <span><h3>Voyajoy Inquiries</h3></span>
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="!userIsAuthenticated">
+      <a href="login" mat-button routerLink="/" routerLinkActive="mat-accent">Login</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button mat-button (click)="onLogout()">Logout</button>
+    </li>
+  </ul>
 </mat-toolbar>
