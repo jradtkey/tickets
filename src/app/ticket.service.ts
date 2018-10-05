@@ -33,11 +33,14 @@ export class TicketService {
             accountType: ticket.accountType,
             assignedTo: ticket.assignedTo,
             status: ticket.status,
-            id: ticket._id
+            id: ticket._id,
+            creator: ticket.creator,
+            createdAt: ticket.createdAt
           }
         })
       }))
       .subscribe(transformedTickets => {
+        console.log(transformedTickets)
         this.tickets = transformedTickets;
         this.ticketsUpdated.next([...this.tickets]);
       })

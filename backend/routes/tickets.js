@@ -15,9 +15,10 @@ router.post("", checkAuth, (req, res, next) => {
     platformImage: req.body.platformImage,
     accountType: req.body.accountType,
     assignedTo: req.body.assignedTo,
-    status: req.body.status
+    status: req.body.status,
+    creator: req.userData.userId,
+    createdAt: Date.now()
   });
-  console.log(ticket);
   ticket.save().then(createdTicket => {
     res.status(201).json({
       message: 'ticket added',

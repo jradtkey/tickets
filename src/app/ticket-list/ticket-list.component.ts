@@ -15,6 +15,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
   tickets: Ticket[] = [];
   ticket: Ticket;
   userIsAuthenticated = false;
+  userId: string;
   private ticketsSub: Subscription;
   private authStatusSub: Subscription;
 
@@ -28,6 +29,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.userId = this.userService.getUserId();
     this.ticketService.getTickets();
     this.ticketsSub = this.ticketService.getTicketUpdateListener()
       .subscribe((tickets: Ticket[]) => {
@@ -38,6 +40,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.userService.getUserId();
       });
   }
 

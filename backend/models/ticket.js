@@ -11,7 +11,9 @@ const ticketSchema = mongoose.Schema({
   accountType: String,
   platformImage: String,
   assignedTo: String,
-  status: String
+  status: String,
+  creator: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
+  createdAt: Date
 })
 
 module.exports = mongoose.model('Ticket', ticketSchema);

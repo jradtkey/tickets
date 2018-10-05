@@ -52,9 +52,10 @@ router.post("/login", (req, res, next) => {
 
       const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser._id }, 'this_is_a_secret_code_that_i_need_to_add', {expiresIn: 86400});
 
-
       res.status(200).json({
-        token: token
+        token: token,
+        expiresIn: 86400,
+        userId: fetchedUser._id
       });
     })
     .catch(err => {
