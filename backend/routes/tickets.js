@@ -4,6 +4,7 @@ const router = express.Router();
 const checkAuth = require("../middleware/check-auth");
 
 router.post("", checkAuth, (req, res, next) => {
+  console.log(req.body);
   const ticket = new Ticket({
     platform: req.body.platform,
     inquiryType: req.body.inquiryType,
@@ -16,9 +17,10 @@ router.post("", checkAuth, (req, res, next) => {
     accountType: req.body.accountType,
     assignedTo: req.body.assignedTo,
     status: req.body.status,
-    creator: req.userData.userId,
+    creator: req.body.creator,
     createdAt: Date.now()
   });
+
   ticket.save().then(createdTicket => {
     res.status(201).json({
       message: 'ticket added',

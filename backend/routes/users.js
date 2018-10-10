@@ -5,6 +5,8 @@ var jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
+
+
 router.post("/signUp", (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
@@ -51,7 +53,7 @@ router.post("/login", (req, res, next) => {
       }
 
       const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser._id }, 'this_is_a_secret_code_that_i_need_to_add', {expiresIn: 86400});
-
+      userID = fetchedUser._id;
       res.status(200).json({
         token: token,
         expiresIn: 86400,
@@ -70,6 +72,14 @@ router.get('', (req, res, next) => {
     res.status(200).json({
       message: 'users fetched succesfully',
       users: documents
+    });
+  });
+});
+
+router.post('/user', (req, res, next) => {
+  User.findOne({_id: req.body._id}).then(user => {
+    res.status(200).json({
+      user: user.name
     });
   });
 });

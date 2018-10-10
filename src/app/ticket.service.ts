@@ -54,8 +54,7 @@ export class TicketService {
     return {...this.tickets.find(t => t.id === id)};
   }
 
-  addTicket(platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, accountType: string, status: string, assignedTo: string){
-
+  addTicket(platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, accountType: string, status: string, assignedTo: string, creator: string){
     const ticket: Ticket = {
       id: null,
       platform: platform,
@@ -68,7 +67,8 @@ export class TicketService {
       platformImage: platformImage,
       accountType: accountType,
       assignedTo: assignedTo,
-      status: status
+      status: status,
+      creator: creator
     };
     this.http.post<{message: string, ticketId: string}>('http://localhost:3000/api/tickets', ticket)
       .subscribe((responseData) => {
@@ -79,7 +79,7 @@ export class TicketService {
       });
   }
 
-  updateTicket(id: string, platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, status: string, accountType: string, assignedTo: string) {
+  updateTicket(id: string, platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, status: string, accountType: string, assignedTo: string, creator: string) {
 
     const ticket: Ticket = {
       id: id,
@@ -93,8 +93,10 @@ export class TicketService {
       platformImage: platformImage,
       accountType: accountType,
       assignedTo: assignedTo,
-      status: status
+      status: status,
+      creator: creator
     };
+    console.log(ticket)
     this.http.put('http://localhost:3000/api/tickets/' + id, ticket)
       .subscribe((response => {
         const updatedTickets = [...this.tickets];

@@ -18,6 +18,7 @@ export class UserService {
   private tokenTimer;
   private token: string;
   private userId: string;
+  private userName: string;
 
   getToken() {
     return this.token;
@@ -31,8 +32,21 @@ export class UserService {
     return this.userId;
   }
 
+  getUserName() {
+    console.log(this.userName)
+    return this.userName;
+  }
+
   getAuthStatusListener(){
     return this.authStatusListener.asObservable()
+  }
+
+  getUser(){
+    const user = {_id: this.userId}
+    this.http.post('http://localhost:3000/api/users/user', user)
+      .subscribe(response => {
+        this.userName = response['user']
+      })
   }
 
   getUsers(){
@@ -77,7 +91,6 @@ export class UserService {
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration*1000);
-          console.log("expiration date", expirationDate)
           this.saveAuthData(token, expirationDate, this.userId);
           this.router.navigate(['/tickets']);
         }

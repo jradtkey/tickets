@@ -10,5 +10,6 @@ export interface Ticket {
   platformImage: string,
   accountType: string,
   assignedTo: string,
-  status: string
+  status: string,
+  creator: string
 }

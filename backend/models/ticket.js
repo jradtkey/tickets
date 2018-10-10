@@ -12,7 +12,7 @@ const ticketSchema = mongoose.Schema({
   platformImage: String,
   assignedTo: String,
   status: String,
-  creator: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
+  creator: String,
   createdAt: Date
 })
 
