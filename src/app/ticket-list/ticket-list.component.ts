@@ -30,7 +30,9 @@ export class TicketListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.userService.getUser();
+    this.userService.getUser().then(name => {
+      this.user = this.userService.userName
+    });
     this.userService.getUserName();
     this.userId = this.userService.getUserId();
     this.ticketService.getTickets();
@@ -45,7 +47,6 @@ export class TicketListComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.userService.getUserId();
       });
-
   }
 
   toggleNotes(ticketId){
@@ -76,7 +77,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
       this.enteredPlatformImage = "https://drive.google.com/thumbnail?id=1rER6gOj6cKfHqAIbQoryI-Av8RabD07s"
     }
 
-    this.ticketService.addTicket(form.value.platform, form.value.inquiry_type, form.value.guest_name, form.value.check_in, form.value.check_out, form.value.property, form.value.property_owner, this.enteredPlatformImage, 'Account Type', 'Unresolved', 'User', 'User name')
+    this.ticketService.addTicket(form.value.platform, form.value.inquiry_type, form.value.guest_name, form.value.check_in, form.value.check_out, form.value.property, form.value.property_owner, this.enteredPlatformImage, 'Account Type', 'Unresolved', this.user['user'], this.user['user'])
     form.resetForm();
   }
 
@@ -101,7 +102,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
     else if (form.value.platform == 'Booking.com'){
       this.enteredPlatformImage = "https://drive.google.com/thumbnail?id=1rER6gOj6cKfHqAIbQoryI-Av8RabD07s"
     }
-    this.ticketService.updateTicket(id, form.value.platform, form.value.inquiry_type, form.value.guest_name, form.value.check_in, form.value.check_out, form.value.property, form.value.property_owner, this.enteredPlatformImage, status, 'Account Type', 'User', form.value.creator);
+    this.ticketService.updateTicket(id, form.value.platform, form.value.inquiry_type, form.value.guest_name, form.value.check_in, form.value.check_out, form.value.property, form.value.property_owner, this.enteredPlatformImage, status, 'Account Type', 'User');
 
     this.close();
   }

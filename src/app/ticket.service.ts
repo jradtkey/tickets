@@ -40,7 +40,6 @@ export class TicketService {
         })
       }))
       .subscribe(transformedTickets => {
-        console.log(transformedTickets)
         this.tickets = transformedTickets;
         this.ticketsUpdated.next([...this.tickets]);
       })
@@ -79,7 +78,7 @@ export class TicketService {
       });
   }
 
-  updateTicket(id: string, platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, status: string, accountType: string, assignedTo: string, creator: string) {
+  updateTicket(id: string, platform: string, inquiryType: string, guestName: string, checkIn: string, checkOut: string, property: string, propertyOwner: string, platformImage: string, status: string, accountType: string, assignedTo: string) {
 
     const ticket: Ticket = {
       id: id,
@@ -94,9 +93,9 @@ export class TicketService {
       accountType: accountType,
       assignedTo: assignedTo,
       status: status,
-      creator: creator
+      creator: null
     };
-    console.log(ticket)
+
     this.http.put('http://localhost:3000/api/tickets/' + id, ticket)
       .subscribe((response => {
         const updatedTickets = [...this.tickets];

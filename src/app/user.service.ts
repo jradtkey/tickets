@@ -18,7 +18,7 @@ export class UserService {
   private tokenTimer;
   private token: string;
   private userId: string;
-  private userName: string;
+  userName;
 
   getToken() {
     return this.token;
@@ -33,7 +33,6 @@ export class UserService {
   }
 
   getUserName() {
-    console.log(this.userName)
     return this.userName;
   }
 
@@ -41,12 +40,9 @@ export class UserService {
     return this.authStatusListener.asObservable()
   }
 
-  getUser(){
+  async getUser(){
     const user = {_id: this.userId}
-    this.http.post('http://localhost:3000/api/users/user', user)
-      .subscribe(response => {
-        this.userName = response['user']
-      })
+    this.userName = await this.http.post('http://localhost:3000/api/users/user', user).toPromise();
   }
 
   getUsers(){
@@ -105,7 +101,7 @@ export class UserService {
     }
     this.http.post("http://localhost:3000/api/users/signUp", user)
       .subscribe(response => {
-        console.log("response:", response)
+        response;
       })
   }
 
@@ -136,7 +132,6 @@ export class UserService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log("setting timer:", duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);

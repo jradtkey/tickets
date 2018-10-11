@@ -30,6 +30,12 @@ router.post("", checkAuth, (req, res, next) => {
 });
 
 router.put("/:id", checkAuth, (req, res, next) => {
+  let creator;
+  Ticket.findOne({_id: req.params.id}).then(ticket => {
+    console.log("creator", ticket);
+    creator = ticket.creator
+    console.log(creator);
+  });
   const ticket = new Ticket({
     _id: req.body.id,
     platform: req.body.platform,
@@ -42,7 +48,8 @@ router.put("/:id", checkAuth, (req, res, next) => {
     platformImage: req.body.platformImage,
     accountType: req.body.accountType,
     assignedTo: req.body.assignedTo,
-    status: req.body.status
+    status: req.body.status,
+    creator: creator
   });
   Ticket.updateOne({_id: req.params.id}, ticket).then(result => {
     console.log(result);
