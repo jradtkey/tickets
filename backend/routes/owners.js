@@ -14,16 +14,42 @@ router.get("", (req, res, next) => {
 
 
 router.post("", checkAuth, (req, res, next) => {
-  console.log(req.body);
+
   const owner = new Owner({
     name: req.body.name,
     phone: req.body.phone,
     email: req.body.email,
     accountType: req.body.accountType,
     commission: req.body.commission,
-    properties: [],
+    properties: [
+      {
+        title: '',
+        addressStreet: '',
+        addressCity: '',
+        addressState: '',
+        adressZip: '',
+        status: '',
+        owner_airbnb_link: '',
+        owner_booking_link: '',
+        owner_tripAdvisor_link: '',
+        owner_vrboHomeAway_link: '',
+        owner_other_links:[],
+        vj_airbnb_link: '',
+        vj_booking_link: '',
+        vj_tripAdvisor_link: '',
+        vj_vrboHomeAway_link: '',
+        vj_other_links:[]
+      }
+    ],
+    notes: [
+      {
+        note: ''
+      }
+    ],
     createdAt: Date.now()
   });
+
+  console.log(owner);
 
   owner.save().then(createdOwner => {
     res.status(201).json({
@@ -31,6 +57,8 @@ router.post("", checkAuth, (req, res, next) => {
       owner: createdOwner
     });
   });
+
+
 
 });
 

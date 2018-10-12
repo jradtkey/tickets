@@ -4,5 +4,6 @@ export interface Owner {
   phone: string,
   email: string,
   accountType: string,
-  commission
+  commission: number,
+  properties
 }

@@ -39,21 +39,41 @@ export class OwnerService {
     return this.ownersUpdated.asObservable();
   }
 
-  createOwner(){
+  async createOwner(){
 
-    const owner: Owner = {
-      id: null,
-      name: "Alan Nash",
-      email: "alan@medxfirst.com",
-      phone: "(617) 510-1334",
-      accountType: "StandardVR Marketing",
-      commission: 10
-    };
 
-    this.http.post<{message: string, owner: any}>('http://localhost:3000/api/owners', owner)
-      .subscribe((responseData) => {
-        const owner = responseData.owner;
-        console.log(responseData)
-      })
+
+    // //var owners = await this.http.get('http://ancient-meadow-35207.herokuapp.com/api/ol').toPromise()
+    //
+    // for (let variable of owners['results']) {
+    //   var name = variable.name;
+    //   var replaced = name.split(' ').join('+');
+    //   console.log(replaced);
+    //
+    //   var results = await this.http.get('http://ancient-meadow-35207.herokuapp.com/api/spf?ownername='+replaced).toPromise();
+    //   // console.log(results)
+    //   const owner: Owner = {
+    //     id: null,
+    //     name: results['ownerName'],
+    //     email: null,
+    //     phone: null,
+    //     accountType: null,
+    //     commission: results['vjFee'],
+    //     properties: [results['results']]
+    //   }
+    //   // console.log(owner);
+    //
+    //   this.http.post<{message: string, owner: any}>('http://localhost:3000/api/owners', owner)
+    //     .subscribe((responseData) => {
+    //
+    //       console.log(responseData);
+    //
+    //     })
+
+    //}
+
+
+
+
   }
 }
