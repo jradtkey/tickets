@@ -63,4 +63,11 @@ router.post("", checkAuth, (req, res, next) => {
 });
 
 
+router.get("/:id", checkAuth, (req, res, next) => {
+  Owner.findOne({_id: req.params.id}).then(owner => {
+    res.status(200).json({message: 'Owner', owner: owner});
+  });
+});
+
+
 module.exports = router;
