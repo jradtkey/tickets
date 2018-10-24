@@ -1,0 +1,38 @@
+.container {
+  margin-top: 10px;
+  margin-left: 100px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  float: left;
+}
+
+#search {
+  display: block;
+  text-align: right;
+  padding-top: 10px;
+  text-decoration: none;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.header {
+  /*height: 60px;*/
+  background-color: #dbdbdb;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 25px;
+  padding-top: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}

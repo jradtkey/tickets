@@ -17,7 +17,7 @@ export class OwnerCreateComponent implements OnInit, OnDestroy {
   private ownersSub: Subscription;
   userIsAuthenticated = false;
   private authStatusSub: Subscription;
-
+  private modal = false;
 
   constructor(public ownerService: OwnerService, private userService: UserService) { }
 
@@ -36,7 +36,14 @@ export class OwnerCreateComponent implements OnInit, OnDestroy {
   }
 
   createOwner(){
+    if (this.modal == false) {
+      this.modal = true;
+    }
     this.ownerService.createOwner();
+  }
+
+  showOwner(id){
+    this.ownerService.showOwner(id);
   }
 
   ngOnDestroy() {

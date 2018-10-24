@@ -3,16 +3,19 @@ import { Owner } from './owner.model';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OwnerService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   private owners: Owner[] = [];
   private ownersUpdated = new Subject<Owner[]>();
+  owner;
+  ownerId = '';
 
   getOwners(){
     this.http.get<{message: string, owners: any}>('http://localhost:3000/api/owners')
@@ -39,8 +42,14 @@ export class OwnerService {
     return this.ownersUpdated.asObservable();
   }
 
-  async createOwner(){
+  async showOwner(id) {
+    this.owner = await this.http.get('http://localhost:3000/api/owners/' + id).toPromise();
+    this.owner = this.owner['owner']
+    this.router.navigate(['/owner/'+id]);
+  }
 
+
+  async createOwner(){
 
 
     // //var owners = await this.http.get('http://ancient-meadow-35207.herokuapp.com/api/ol').toPromise()

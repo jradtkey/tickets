@@ -5,11 +5,13 @@ import { TicketCreateComponent } from "./ticket-create/ticket-create.component";
 import { PropertyCreateComponent } from "./property-create/property-create.component";
 import { OwnerCreateComponent } from "./owner-create/owner-create.component";
 import { LoginComponent } from "./auth/login/login.component";
+import { OwnerComponent } from "./owner/owner.component";
 
 const routes: Routes =[
   { path: 'tickets', component: TicketListComponent},
   { path: 'createProperty', component: PropertyCreateComponent},
   { path: 'Owners', component: OwnerCreateComponent },
+  { path: 'owner/:id', component: OwnerComponent},
   { path: '', component: LoginComponent}
 ]
 

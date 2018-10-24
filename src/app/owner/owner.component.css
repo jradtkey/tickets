@@ -1,0 +1,100 @@
+.container {
+  margin-top: 10px;
+  margin-left: 100px;
+}
+
+.name {
+  /*height: 60px;*/
+  background-color: #dbdbdb;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 25px;
+  padding-top: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.rows {
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+    display: block;
+    text-align: right;
+    padding: 16px;
+    text-decoration: none;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar {
+  border-bottom: 1px solid #dbdbdb;
+  margin-bottom: 10px;
+}
+
+.row {
+  display: inline;
+}
+
+a {
+  cursor: pointer;
+}
+
+.box {
+  height: 400px;
+  border: 1px dotted red;
+}
+
+
+/*MODAL VIEW*/
+
+.modal {
+    display: block;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;/* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

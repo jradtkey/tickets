@@ -15,7 +15,8 @@ import { PropertyCreateComponent } from './property-create/property-create.compo
 import { AppRoutingModule } from "./app-routing.module";
 import { OwnerCreateComponent } from './owner-create/owner-create.component';
 import { LoginComponent } from './auth/login/login.component';
-import { AuthInterceptor } from './auth/interceptor'
+import { AuthInterceptor } from './auth/interceptor';
+import { OwnerComponent } from './owner/owner.component'
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AuthInterceptor } from './auth/interceptor'
     SideBarComponent,
     PropertyCreateComponent,
     OwnerCreateComponent,
-    LoginComponent
+    LoginComponent,
+    OwnerComponent
   ],
   imports: [
     BrowserModule,

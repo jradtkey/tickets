@@ -1,0 +1,157 @@
+<div class="container">
+
+  <mat-toolbar class="name">
+      <span><h2>{{owner.name}}</h2></span>
+      <span class="spacer"></span>
+      <ul>
+        <li>
+          <a></a>
+        </li>
+      </ul>
+  </mat-toolbar>
+
+  <mat-toolbar class="toolbar">
+    <span><h3>Contact Info</h3></span>
+    <span class="spacer"></span>
+    <ul>
+      <li (click)="onEdit()"><a>Edit</a></li>
+    </ul>
+  </mat-toolbar>
+  <div class="rows">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+      <b>Phone:  </b><br>
+      510-424-3211
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+      <b>Email:</b><br>
+      jsartuche@voyajoy.com
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+      <b>Account Type:</b><br>
+      Full Property Management
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+      <b>Commission:</b><br>
+      {{owner.commission}}%
+    </div>
+  </div>
+  <div class="rows">
+    <mat-toolbar class="toolbar">
+      <span><h3>Properties</h3></span>
+      <span class="spacer"></span>
+      <ul>
+        <li><a>Add Property</a></li>
+        <li><a>Edit</a></li>
+      </ul>
+    </mat-toolbar>
+
+
+    <div>
+
+        <div class="rows">
+          <b class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">Street Address</b>
+          <b class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">City</b>
+          <b class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">Status</b>
+          <b class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">Property Title</b>
+        </div>
+
+        <div class="rows" *ngFor="let property of properties">
+
+          <div class="rows">
+            <a (click)="goToProperty(property.id)" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">1328 Scott St</a>
+            <p class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">El Cerrito</p>
+            <p class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">Active</p>
+            <p class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">★Views of the GG Park & SF Bay★Outdoor Patio★BBQ★ / Bright 3BR with Private Patio and City Views</p>
+          </div>
+
+          <div *ngFor="let box of dropdown">
+            <div class="box" *ngIf="box == property.id">
+              <div class="rows">
+                <h3>Listing Links</h3>
+              </div>
+              <div class="rows">
+                <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6">
+                  <h4>Voyajoy Links</h4>
+                  <p>Airbnb:</p>
+                  <p>{{vj_airbnb_link}}</p>
+                  <p>VRBO/HomeAway:</p>
+                  <p>{{vj_vrboHomeAway_link}}</p>
+                  <p>Booking.com:</p>
+                  <p>{{vj_booking_link}}</p>
+                  <p>TripAdvisor:</p>
+                  <p>{{vj_tripAdvisor_link}}</p>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6">
+                  <h4>Owner Links</h4>
+                  <p>Airbnb:</p>
+                  <p>{{owner_airbnb_link}}</p>
+                  <p>VRBO/HomeAway:</p>
+                  <p>{{owner_vrboHomeAway_link}}</p>
+                  <p>Booking.com:</p>
+                  <p>{{owner_booking_link}}</p>
+                  <p>TripAdvisor:</p>
+                  <p>{{owner_tripAdvisor_link}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+  </div>
+
+  <div class="rows">
+    <mat-toolbar class="toolbar">
+      <span><h3>Notes</h3></span>
+      <span class="spacer"></span>
+      <ul>
+        <li><a>Edit</a></li>
+      </ul>
+    </mat-toolbar>
+
+  </div>
+</div>
+
+<div id="myModal" class="modal" *ngIf="modal == true">
+    <div class="modal-content">
+        <span class="close" (click)="close()">&times;</span>
+
+        <div id="form">
+
+          <form (submit)="onEditTicket(ticketForm, ticket.id, ticket.status)" #ticketForm="ngForm" name="newTicket">
+
+            <div id="form-box">
+              <label>Platform:</label>
+              <input name="platform" [ngModel]="ticket.platform" class="form-control">
+              <label>Inquiry Type:</label>
+              <input name="inquiry_type" [ngModel]="ticket.inquiryType" class="form-control">
+            </div>
+
+
+            <div id="form-box">
+              <label>Guest Name:</label>
+              <input name="guest_name" [ngModel]="ticket.guestName" class="form-control" required #guestFirstName="ngModel" placeholder="required">
+            </div>
+
+            <div id="form-box">
+              <label>Check In:</label>
+              <input name="check_in" [ngModel]="ticket.checkIn" class="form-control" type="date">
+              <label>Check Out:</label>
+              <input name="check_out" [ngModel]="ticket.checkOut" class="form-control" type="date">
+            </div>
+
+            <div id="form-box">
+              <label>Property Address:</label>
+              <input name="property" [ngModel]="ticket.property" class="form-control" required #property="ngModel" placeholder="required">
+              <label>Property Owner:</label>
+              <input name="property_owner" [ngModel]="ticket.propertyOwner" class="form-control" required #propertyOwner="ngModel" placeholder="required">
+            </div>
+
+            <button type="submit" class="btn1">Update</button>
+
+          </form>
+
+        </div>
+
+    </div>
+</div>

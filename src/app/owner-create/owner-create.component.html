@@ -1,35 +1,79 @@
-<p>
-  owner-create works!
-</p>
+<div class="container">
+  <mat-toolbar class="header">
+      <span><h2>Owners</h2></span>
+      <span class="spacer"></span>
+      <ul>
+        <li>
+          <div class="active-cyan-4 mb-4" id="search">
+              <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+          </div>
+        </li>
+      </ul>
+  </mat-toolbar>
 
-<button type="button" name="button" (click)="createOwner()">Create Owner</button>
-<br><br>
+  <button type="button" name="button" (click)="createOwner()">Create Owner</button>
+  <br><br>
 
-<div>
-    <table>
-      <tr>
-        <td>
-          Owner Name
-        </td>
-        <td>
-          Owner Email
-        </td>
-        <td>
-          Owner Phone
-        </td>
-        <td>
-          Account Type
-        </td>
-        <td>
-          Commission
-        </td>
-      </tr>
-      <tr *ngFor="let owner of owners">
-        <td class="col-sm-2 col-md-2 col-lg-2 col-xl-2">{{owner.name}}</td>
-        <td class="col-sm-2 col-md-2 col-lg-2 col-xl-2">{{owner.email}}</td>
-        <td class="col-sm-2 col-md-2 col-lg-2 col-xl-2">{{owner.phone}}</td>
-        <td class="col-sm-2 col-md-2 col-lg-2 col-xl-2">{{owner.accountType}}</td>
-        <td class="col-sm-2 col-md-2 col-lg-2 col-xl-2">{{owner.commission}}</td>
-      </tr>
-    </table>
+  <div>
+      <table>
+        <tr>
+          <td>
+            Owner Name
+          </td>
+          <td>
+            Owner Email
+          </td>
+          <td>
+            Owner Phone
+          </td>
+          <td>
+            Account Type
+          </td>
+          <td>
+            Commission
+          </td>
+        </tr>
+        <tr *ngFor="let owner of owners">
+          <a (click)="showOwner(owner.id)"><td class="col-sm-2 col-md-2 col-lg-2 col-xl-2">{{owner.name}}</td></a>
+          <td class="col-sm-2 col-md-2 col-lg-2 col-xl-2">{{owner.email}}</td>
+          <td class="col-sm-2 col-md-2 col-lg-2 col-xl-2">{{owner.phone}}</td>
+          <td class="col-sm-2 col-md-2 col-lg-2 col-xl-2">{{owner.accountType}}</td>
+          <td class="col-sm-2 col-md-2 col-lg-2 col-xl-2">{{owner.commission}}</td>
+        </tr>
+      </table>
+  </div>
 </div>
+
+<!-- <div id="myModal" class="modal" *ngIf="modal == true">
+    <div class="modal-content">
+        <span class="close" (click)="close()">&times;</span>
+
+        <div id="form">
+
+          <form (submit)="onEditOwner(ownerForm, owner.id, owner.status)" #ownerForm="ngForm">
+
+            <div id="form-box">
+              <label>Name:</label>
+              <input name="name" [ngModel]="owner.name" class="form-control">
+              <label>Phone Number:</label>
+              <input name="phone" [ngModel]="owner.phone" class="form-control">
+              <label>Email:</label>
+              <input name="email" [ngModel]="owner.email" class="form-control">
+              <label>Account Type:</label>
+              <input name="accountType" [ngModel]="owner.accountType" class="form-control">
+              <label>Commission:</label>
+              <input name="commission" [ngModel]="owner.commission" class="form-control">
+              <label>Property Address:</label>
+              <input name="property" [ngModel]="ticket.property" class="form-control" required #property="ngModel" placeholder="required">
+              <label>Property Owner:</label>
+              <input name="property_owner" [ngModel]="ticket.propertyOwner" class="form-control" required #propertyOwner="ngModel" placeholder="required">
+            </div>
+
+            <button type="submit" class="btn1">Update</button>
+
+          </form>
+
+        </div>
+
+    </div>
+</div> -->
