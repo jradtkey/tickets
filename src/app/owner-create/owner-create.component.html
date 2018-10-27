@@ -11,7 +11,7 @@
       </ul>
   </mat-toolbar>
 
-  <button type="button" name="button" (click)="createOwner()">Create Owner</button>
+  <button type="button" name="button" (click)="openCreateOwner()">Create Owner</button>
   <br><br>
 
   <div>
@@ -44,36 +44,36 @@
   </div>
 </div>
 
-<!-- <div id="myModal" class="modal" *ngIf="modal == true">
+<div id="myModal" class="modal" *ngIf="modal == true">
     <div class="modal-content">
         <span class="close" (click)="close()">&times;</span>
 
         <div id="form">
 
-          <form (submit)="onEditOwner(ownerForm, owner.id, owner.status)" #ownerForm="ngForm">
+          <form (submit)="createOwner(ownerForm)" #ownerForm="ngForm" name="newOwner">
 
             <div id="form-box">
-              <label>Name:</label>
-              <input name="name" [ngModel]="owner.name" class="form-control">
+              <label>Owner Name:</label>
+              <input name="name" ngModel class="form-control">
               <label>Phone Number:</label>
-              <input name="phone" [ngModel]="owner.phone" class="form-control">
+              <input name="phone" ngModel class="form-control">
               <label>Email:</label>
-              <input name="email" [ngModel]="owner.email" class="form-control">
+              <input name="email" ngModel class="form-control">
               <label>Account Type:</label>
-              <input name="accountType" [ngModel]="owner.accountType" class="form-control">
+              <select name="accountType" ngModel class="form-control">
+                <option value="Elite">Elite</option>
+                <option value="Standard">Standard</option>
+                <option value="Front Desk">Front Desk</option>
+              </select>
               <label>Commission:</label>
-              <input name="commission" [ngModel]="owner.commission" class="form-control">
-              <label>Property Address:</label>
-              <input name="property" [ngModel]="ticket.property" class="form-control" required #property="ngModel" placeholder="required">
-              <label>Property Owner:</label>
-              <input name="property_owner" [ngModel]="ticket.propertyOwner" class="form-control" required #propertyOwner="ngModel" placeholder="required">
+              <input name="commission" ngModel class="form-control">
             </div>
 
-            <button type="submit" class="btn1">Update</button>
+            <button type="submit" class="btn1">Create</button>
 
           </form>
 
         </div>
 
     </div>
-</div> -->
+</div>

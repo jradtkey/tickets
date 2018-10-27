@@ -5,5 +5,8 @@ export interface Owner {
   email: string,
   accountType: string,
   commission: number,
-  properties
+  contacts: [{}],
+  properties: [{}],
+  notes: [{}],
+  createdAt: Date
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OwnerService } from '../owner.service';
+import { Owner } from '../owner.model';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 
@@ -12,8 +13,8 @@ export class OwnerComponent implements OnInit, OnDestroy {
 
   constructor(public ownerService: OwnerService) { }
 
-  owner = '';
-  dropdown = [];
+  owner: Owner;
+  dropdown = 0;
   properties = [
     {
       id: 1412,
@@ -25,12 +26,14 @@ export class OwnerComponent implements OnInit, OnDestroy {
     }
   ]
   modal = false;
+  modalType = '';
 
   ngOnInit() {
     this.owner = this.ownerService.owner;
   }
 
-  onEdit(){
+  openModal(type){
+    this.modalType = type;
     this.modal = true;
   }
 
@@ -39,16 +42,18 @@ export class OwnerComponent implements OnInit, OnDestroy {
   }
 
   goToProperty(propId){
-    console.log(propId)
-    if (this.dropdown.includes(propId)){
-      this.dropdown.splice(this.dropdown.indexOf(propId), 1)
+    if(this.dropdown !== 1328) {
+      this.dropdown = 1328;
     }
     else {
-      this.dropdown.push(propId)
+      this.dropdown = 0;
     }
+  }
 
-
-    console.log(this.dropdown)
+  editContact(contactForm, id) {
+    console.log(contactForm);
+    console.log(id)
+    this.ownerService.updateOwnerContact(contactForm, id, this.owner.contacts, this.owner.properties, this.owner.notes, this.owner.createdAt);
   }
 
   ngOnDestroy(){

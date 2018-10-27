@@ -14,7 +14,7 @@
     <span><h3>Contact Info</h3></span>
     <span class="spacer"></span>
     <ul>
-      <li (click)="onEdit()"><a>Edit</a></li>
+      <li (click)="openModal('editOwnerContacts')"><a>Edit</a></li>
     </ul>
   </mat-toolbar>
   <div class="rows">
@@ -41,64 +41,65 @@
       <span class="spacer"></span>
       <ul>
         <li><a>Add Property</a></li>
-        <li><a>Edit</a></li>
       </ul>
     </mat-toolbar>
 
 
     <div>
-
-        <div class="rows">
-          <b class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">Street Address</b>
-          <b class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">City</b>
-          <b class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">Status</b>
-          <b class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">Property Title</b>
-        </div>
-
-        <div class="rows" *ngFor="let property of properties">
-
-          <div class="rows">
-            <a (click)="goToProperty(property.id)" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">1328 Scott St</a>
-            <p class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">El Cerrito</p>
-            <p class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">Active</p>
-            <p class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">★Views of the GG Park & SF Bay★Outdoor Patio★BBQ★ / Bright 3BR with Private Patio and City Views</p>
-          </div>
-
-          <div *ngFor="let box of dropdown">
-            <div class="box" *ngIf="box == property.id">
-              <div class="rows">
-                <h3>Listing Links</h3>
-              </div>
-              <div class="rows">
-                <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6">
-                  <h4>Voyajoy Links</h4>
-                  <p>Airbnb:</p>
-                  <p>{{vj_airbnb_link}}</p>
-                  <p>VRBO/HomeAway:</p>
-                  <p>{{vj_vrboHomeAway_link}}</p>
-                  <p>Booking.com:</p>
-                  <p>{{vj_booking_link}}</p>
-                  <p>TripAdvisor:</p>
-                  <p>{{vj_tripAdvisor_link}}</p>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6">
-                  <h4>Owner Links</h4>
-                  <p>Airbnb:</p>
-                  <p>{{owner_airbnb_link}}</p>
-                  <p>VRBO/HomeAway:</p>
-                  <p>{{owner_vrboHomeAway_link}}</p>
-                  <p>Booking.com:</p>
-                  <p>{{owner_booking_link}}</p>
-                  <p>TripAdvisor:</p>
-                  <p>{{owner_tripAdvisor_link}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-  </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Street Address</th>
+                <th scope="col">City</th>
+                <th scope="col">Status</th>
+                <th scope="col">Property Title</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a (click)="goToProperty(1328)">1328 Scott St</a></td>
+                <td>El Cerrito</td>
+                <td>Active</td>
+                <td>★Views of the GG Park & SF Bay★Outdoor Patio★BBQ★ / Bright 3BR with Private Patio and City Views</td>
+                <td><a (click)="openModal('editProperties')">Edit</a></td>
+              </tr>
+              <tr *ngIf="dropdown == 1328">
+                <td colspan="4">
+                  <div class="box">
+                    <div class="rows">
+                      <h3>Listing Links</h3>
+                    </div>
+                    <div class="rows">
+                      <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6">
+                        <h4>Voyajoy Links</h4>
+                        <p>Airbnb:</p>
+                        <p>{{vj_airbnb_link}}</p>
+                        <p>VRBO/HomeAway:</p>
+                        <p>{{vj_vrboHomeAway_link}}</p>
+                        <p>Booking.com:</p>
+                        <p>{{vj_booking_link}}</p>
+                        <p>TripAdvisor:</p>
+                        <p>{{vj_tripAdvisor_link}}</p>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-lg-6 col-xl-6">
+                        <h4>Owner Links</h4>
+                        <p>Airbnb:</p>
+                        <p>{{owner_airbnb_link}}</p>
+                        <p>VRBO/HomeAway:</p>
+                        <p>{{owner_vrboHomeAway_link}}</p>
+                        <p>Booking.com:</p>
+                        <p>{{owner_booking_link}}</p>
+                        <p>TripAdvisor:</p>
+                        <p>{{owner_tripAdvisor_link}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
 
   <div class="rows">
     <mat-toolbar class="toolbar">
@@ -112,39 +113,92 @@
   </div>
 </div>
 
+<!-- MODAL -->
+
+
 <div id="myModal" class="modal" *ngIf="modal == true">
-    <div class="modal-content">
+
+  <!-- EDIT OWNER CONTACT FORM -->
+    <div class="modal-content" *ngIf="modalType == 'editOwnerContacts'">
         <span class="close" (click)="close()">&times;</span>
 
         <div id="form">
 
-          <form (submit)="onEditTicket(ticketForm, ticket.id, ticket.status)" #ticketForm="ngForm" name="newTicket">
+          <form (submit)="editContact(contactForm, owner._id)" #contactForm="ngForm" name="editContact">
 
             <div id="form-box">
-              <label>Platform:</label>
-              <input name="platform" [ngModel]="ticket.platform" class="form-control">
-              <label>Inquiry Type:</label>
-              <input name="inquiry_type" [ngModel]="ticket.inquiryType" class="form-control">
+              <label>Name:</label>
+              <input name="name" [ngModel]="owner.name" class="form-control">
+              <label>Phone:</label>
+              <input name="phone" [ngModel]="owner.phone" class="form-control">
+              <label>Email:</label>
+              <input name="email" [ngModel]="owner.email" class="form-control">
+              <label> Account Type:</label>
+              <input name="accountType" [ngModel]="owner.accountType" class="form-control">
+              <label>Commision:</label>
+              <input name="commission" [ngModel]="owner.commission" class="form-control">
             </div>
 
+            <button type="submit" class="btn1">Update</button>
+
+          </form>
+
+        </div>
+    </div>
+
+    <!-- EDIT PROPERTIES FORM -->
+    <div class="modal-content" *ngIf="modalType == 'editProperties'">
+        <span class="close" (click)="close()">&times;</span>
+
+
+
+
+        <div id="form">
+
+          <form (submit)="onEditProperty()" #editPropertyForm="ngForm" name="editProperty">
 
             <div id="form-box">
-              <label>Guest Name:</label>
-              <input name="guest_name" [ngModel]="ticket.guestName" class="form-control" required #guestFirstName="ngModel" placeholder="required">
+              <label>Title:</label>
+              <input name="title" ngModel class="form-control">
+              <label>Street:</label>
+              <input name="street" ngModel class="form-control">
+              <label>City:</label>
+              <input name="city" ngModel class="form-control">
+              <label>State:</label>
+              <input name="state" ngModel class="form-control">
+              <label>Zip Code:</label>
+              <input name="zip_code" ngModel class="form-control">
+              <label>Status:</label>
+              <input name="status" ngModel class="form-control">
             </div>
 
-            <div id="form-box">
-              <label>Check In:</label>
-              <input name="check_in" [ngModel]="ticket.checkIn" class="form-control" type="date">
-              <label>Check Out:</label>
-              <input name="check_out" [ngModel]="ticket.checkOut" class="form-control" type="date">
-            </div>
-
-            <div id="form-box">
-              <label>Property Address:</label>
-              <input name="property" [ngModel]="ticket.property" class="form-control" required #property="ngModel" placeholder="required">
-              <label>Property Owner:</label>
-              <input name="property_owner" [ngModel]="ticket.propertyOwner" class="form-control" required #propertyOwner="ngModel" placeholder="required">
+            <div class="row" id="form-box">
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <h3>Owner Listings Links</h3>
+                <label>Airbnb:</label>
+                <input name="owner_airbnb_link" ngModel class="form-control">
+                <label>VRBO/HomeAway:</label>
+                <input name="owner_vrboHomeAway_link" ngModel class="form-control">
+                <label>TripAdvisor:</label>
+                <input name="owner_tripAdvisor_link" ngModel class="form-control">
+                <label>Booking.com:</label>
+                <input name="owner_booking_link" ngModel class="form-control">
+                <label>Other:</label>
+                <input name="owner_other_links" ngModel class="form-control">
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <h3>Voyajoy Listings Links</h3>
+                <label>Airbnb:</label>
+                <input name="vj_airbnb_link" ngModel class="form-control">
+                <label>VRBO/HomeAway:</label>
+                <input name="vj_vrboHomeAway_link" ngModel class="form-control">
+                <label>TripAdvisor:</label>
+                <input name="vj_tripAdvisor_link" ngModel class="form-control">
+                <label>Booking.com:</label>
+                <input name="vj_booking_link" ngModel class="form-control">
+                <label>Other:</label>
+                <input name="vj_other_links" ngModel class="form-control">
+              </div>
             </div>
 
             <button type="submit" class="btn1">Update</button>

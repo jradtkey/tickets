@@ -7,6 +7,13 @@ const ownerSchema = mongoose.Schema({
   email: String,
   accountType: String,
   commission: Number,
+  contacts: [
+    {
+      name: String,
+      phone: String,
+      email: String
+    }
+  ],
   properties: [
     {
       title: String,

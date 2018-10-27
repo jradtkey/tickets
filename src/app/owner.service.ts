@@ -28,6 +28,7 @@ export class OwnerService {
             phone: owner.phone,
             accountType: owner.accountType,
             commission: owner.commission,
+            contacts: owner.contacts,
             properties: owner.properties
           }
         })
@@ -49,40 +50,55 @@ export class OwnerService {
   }
 
 
-  async createOwner(){
+  createOwner(name: string, phone: string, email: string, accountType: string, commission: number){
+      const owner: Owner = {
+        id: null,
+        name: name,
+        phone: phone,
+        email: email,
+        accountType: accountType,
+        commission: commission,
+        contacts: [{}],
+        properties: [{}],
+        notes: [{}],
+        createdAt: null
+      }
+      console.log("owner service", owner);
+
+      this.http.post<{message: string, owner: any}>('http://localhost:3000/api/owners', owner)
+        .subscribe((responseData) => {
+          var id = responseData.owner._id;
+          this.owner = responseData.owner
+          this.router.navigate(['/owner/'+id]);
+        })
+
+    }
 
 
-    // //var owners = await this.http.get('http://ancient-meadow-35207.herokuapp.com/api/ol').toPromise()
-    //
-    // for (let variable of owners['results']) {
-    //   var name = variable.name;
-    //   var replaced = name.split(' ').join('+');
-    //   console.log(replaced);
-    //
-    //   var results = await this.http.get('http://ancient-meadow-35207.herokuapp.com/api/spf?ownername='+replaced).toPromise();
-    //   // console.log(results)
-    //   const owner: Owner = {
-    //     id: null,
-    //     name: results['ownerName'],
-    //     email: null,
-    //     phone: null,
-    //     accountType: null,
-    //     commission: results['vjFee'],
-    //     properties: [results['results']]
-    //   }
-    //   // console.log(owner);
-    //
-    //   this.http.post<{message: string, owner: any}>('http://localhost:3000/api/owners', owner)
-    //     .subscribe((responseData) => {
-    //
-    //       console.log(responseData);
-    //
-    //     })
-
-    //}
-
-
-
-
+  updateOwnerContact(contactForm, id, contacts, properties, notes, createdAt){
+    const owner: Owner = {
+      id: id,
+      name: contactForm.value.name,
+      phone: contactForm.value.phone,
+      email: contactForm.value.email,
+      accountType: contactForm.value.accountType,
+      commission: contactForm.value.commission,
+      contacts: contacts,
+      properties: properties,
+      notes: notes,
+      createdAt: createdAt
+    }
+    this.http.put('http://localhost:3000/api/owners/' + id, owner)
+      .subscribe((response => {
+        console.log("response", response);
+        this.owner = response;
+        // const updatedTickets = [...this.tickets];
+        // const oldTicketIndex = updatedTickets.findIndex(t => t.id === ticket.id);
+        // updatedTickets[oldTicketIndex] = ticket;
+        // this.tickets = updatedTickets;
+        // this.ticketsUpdated.next([...this.tickets]);
+      }))
   }
+
+
 }

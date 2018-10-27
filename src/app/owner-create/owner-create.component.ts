@@ -35,11 +35,18 @@ export class OwnerCreateComponent implements OnInit, OnDestroy {
         });
   }
 
-  createOwner(){
+  openCreateOwner(){
     if (this.modal == false) {
       this.modal = true;
     }
-    this.ownerService.createOwner();
+  }
+
+  createOwner(form: NgForm){
+    this.ownerService.createOwner(form.value.name, form.value.phone, form.value.email, form.value.accountType, form.value.commission);
+  }
+
+  close(){
+    this.modal = false;
   }
 
   showOwner(id){
