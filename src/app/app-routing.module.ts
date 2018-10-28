@@ -11,12 +11,12 @@ const routes: Routes =[
   { path: 'tickets', component: TicketListComponent},
   { path: 'createProperty', component: PropertyCreateComponent},
   { path: 'Owners', component: OwnerCreateComponent },
-  { path: 'owner/:id', component: OwnerComponent},
+  { path: 'owner/:id', component: OwnerComponent, runGuardsAndResolvers: 'always'},
   { path: '', component: LoginComponent}
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 

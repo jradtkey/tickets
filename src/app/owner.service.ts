@@ -49,6 +49,13 @@ export class OwnerService {
     this.router.navigate(['/owner/'+id]);
   }
 
+  async getOwner(id) {
+    console.log("here")
+    this.owner = await this.http.get('http://localhost:3000/api/owners/' + id).toPromise();
+    this.owner = this.owner['owner']
+    console.log(this.owner)
+  }
+
 
   createOwner(name: string, phone: string, email: string, accountType: string, commission: number){
       const owner: Owner = {
