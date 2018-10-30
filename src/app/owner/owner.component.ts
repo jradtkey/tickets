@@ -12,21 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class OwnerComponent implements OnInit, OnDestroy {
   navigationSubscription;
-  constructor(public ownerService: OwnerService, private route: ActivatedRoute, private router: Router) {
-
-  //   this.navigationSubscription = this.router.events.subscribe((e: any) => {
-  //    // If it is a NavigationEnd event re-initalise the component
-  //    console.log(NavigationEnd)
-  //   //  if (e instanceof NavigationEnd) {
-  //   //    this.initialiseOwner();
-  //   //  }
-  //  });
-
-  }
-
-  initialiseOwner() {
-    // Set default values and re-fetch any data you need.
-  }
+  constructor(public ownerService: OwnerService, private route: ActivatedRoute, private router: Router) {}
 
   owner: Owner;
   // private ownerSub: Subscription;
@@ -81,10 +67,11 @@ export class OwnerComponent implements OnInit, OnDestroy {
     console.log(contactForm);
     console.log(id)
     this.ownerService.updateOwnerContact(contactForm, id, this.owner.contacts, this.owner.properties, this.owner.notes, this.owner.createdAt);
+    this.close();
   }
 
   ngOnDestroy() {
-    // this.ownerSub.unsubscribe();
+  // this.ownerSub.unsubscribe();
   }
 
 }

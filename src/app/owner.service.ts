@@ -14,6 +14,7 @@ export class OwnerService {
 
   private owners: Owner[] = [];
   private ownersUpdated = new Subject<Owner[]>();
+  private ownerUpdated = new Subject<Owner[]>();
   owner;
   ownerId = '';
 
