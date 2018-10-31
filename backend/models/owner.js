@@ -20,7 +20,7 @@ const ownerSchema = mongoose.Schema({
       addressStreet: String,
       addressCity: String,
       addressState: String,
-      adressZip: String,
+      addressZip: String,
       status: String,
       owner_airbnb_link: String,
       owner_booking_link: String,

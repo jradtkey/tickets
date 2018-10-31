@@ -17,18 +17,9 @@ export class OwnerComponent implements OnInit, OnDestroy {
   owner: Owner;
   // private ownerSub: Subscription;
   dropdown = 0;
-  properties = [
-    {
-      id: 1412,
-      name: 'Cottage'
-    },
-    {
-      id: 1513,
-      name: 'Bungalow'
-    }
-  ]
   modal = false;
   modalType = '';
+  id = '';
 
 
 
@@ -45,18 +36,23 @@ export class OwnerComponent implements OnInit, OnDestroy {
     else {this.owner = this.ownerService.owner}
   }
 
-  openModal(type){
+  openModal(type, id){
+    this.id = id;
     this.modalType = type;
     this.modal = true;
+    console.log(id)
+    console.log(type)
   }
 
   close(){
     this.modal = false;
+    this.id = '';
+    this.modalType = '';
   }
 
   goToProperty(propId){
-    if(this.dropdown !== 1328) {
-      this.dropdown = 1328;
+    if(this.dropdown !== propId) {
+      this.dropdown = propId;
     }
     else {
       this.dropdown = 0;
@@ -68,6 +64,24 @@ export class OwnerComponent implements OnInit, OnDestroy {
     console.log(id)
     this.ownerService.updateOwnerContact(contactForm, id, this.owner.contacts, this.owner.properties, this.owner.notes, this.owner.createdAt);
     this.close();
+  }
+
+  addProperty(addPropertyForm, id) {
+    console.log("owner id:", id);
+    console.log("form:", addPropertyForm);
+    this.ownerService.addProperty(addPropertyForm, id);
+    this.close();
+  }
+
+  editProperty(form, id){
+    console.log(form)
+    console.log(id)
+    this.ownerService.editProperty(form, id);
+  }
+
+  deleteOwner(id){
+    alert("Are you sure you want to delete this owner?")
+    this.ownerService.deleteOwner(id);
   }
 
   ngOnDestroy() {

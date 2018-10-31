@@ -74,7 +74,7 @@ router.put("/:id", (req, res, next) => {
     contacts: req.body.contacts,
     properties: req.body.properties,
     notes: req.body.notes,
-    createdAt: Date.now()
+    createdAt: req.body.createdAt
   });
   console.log("back end:", owner);
   Owner.updateOne({_id: req.params.id}, owner).then(result => {
@@ -89,6 +89,14 @@ router.get("/:id", checkAuth, (req, res, next) => {
     res.status(200).json({message: 'Owner', owner: owner});
   });
 });
+
+router.delete('/:id', checkAuth, (req, res, next) => {
+  console.log(req.params.id);
+  Owner.deleteOne({_id: req.params.id}).then(result => {
+    console.log(result);
+    res.status(200).json({ message: 'Owner deleted' });
+  })
+})
 
 
 module.exports = router;
