@@ -14,21 +14,22 @@
     <span><h3>Contact Info</h3></span>
     <span class="spacer"></span>
     <ul>
-      <li (click)="openModal('editOwnerContacts', owner._id)"><a>Edit</a></li>
+      <li><a  (click)="openModal('editOwnerContacts', owner._id)">Edit</a></li>
+      <li><a (click)="openModal('addOwnerContact')">Add Contact</a></li>
     </ul>
   </mat-toolbar>
   <div class="rows">
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
       <b>Phone:  </b><br>
-      510-424-3211
+      {{owner.phone}}
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
       <b>Email:</b><br>
-      jsartuche@voyajoy.com
+      {{owner.email}}
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
       <b>Account Type:</b><br>
-      Full Property Management
+      {{owner.accountType}}
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
       <b>Commission:</b><br>
@@ -62,7 +63,7 @@
                 <td>{{property.addressCity}}</td>
                 <td>{{property.status}}</td>
                 <td>{{property.title}}</td>
-                <td><a (click)="openModal('editProperties', property._id)">Edit</a></td>
+                <td><a (click)="openModal('editProperties', property._id)">Edit</a>&nbsp;&nbsp; <a>Delete</a></td>
               </tr>
               <tr *ngIf="dropdown == property._id">
                 <td colspan="4">
@@ -134,7 +135,13 @@
               <label>Email:</label>
               <input name="email" [ngModel]="owner.email" class="form-control">
               <label> Account Type:</label>
-              <input name="accountType" [ngModel]="owner.accountType" class="form-control">
+              <select name="accountType" [ngModel]="owner.accountType" class="form-control">
+                <option value="Elite">Elite</option>
+                <option value="Standard">Standard</option>
+                <option value="Front Desk">Front Desk</option>
+                <option value="Full Property Management">Full Property Management</option>
+              </select>
+              <!-- <input name="accountType" [ngModel]="owner.accountType" class="form-control"> -->
               <label>Commision:</label>
               <input name="commission" [ngModel]="owner.commission" class="form-control">
             </div>
@@ -145,6 +152,29 @@
 
         </div>
     </div>
+
+    <!-- ADD OWNER CONTACT FORM -->
+      <div class="modal-content" *ngIf="modalType == 'addOwnerContact'">
+          <span class="close" (click)="close()">&times;</span>
+
+          <div id="form">
+
+            <form (submit)="addOwnerContact(addOwnerContactForm, owner._id)" #addOwnerContactForm="ngForm" name="addOwnerContactForm">
+              <div id="form-box">
+                <label>Name:</label>
+                <input name="name" ngModel class="form-control">
+                <label>Phone:</label>
+                <input name="phone" ngModel class="form-control">
+                <label>Email:</label>
+                <input name="email" ngModel class="form-control">
+              </div>
+
+              <button type="submit" class="btn1">Add Contact</button>
+
+            </form>
+
+          </div>
+      </div>
 
     <!-- EDIT PROPERTIES FORM -->
     <div class="modal-content" *ngIf="modalType == 'editProperties'">
@@ -167,7 +197,11 @@
               <label>Zip Code:</label>
               <input name="zip_code" [ngModel]="property.addressZip" class="form-control">
               <label>Status:</label>
-              <input name="status" [ngModel]="property.status" class="form-control">
+              <select name="status" [ngModel]="property.status" class="form-control">
+                <option value="Active">Active</option>
+                <option value="Delisted">Delisted</option>
+              </select>
+              <!-- <input name="status" [ngModel]="property.status" class="form-control"> -->
             </div>
 
             <div class="row" id="form-box">
@@ -232,7 +266,10 @@
               <label>Zip Code:</label>
               <input name="zip_code" ngModel class="form-control">
               <label>Status:</label>
-              <input name="status" ngModel class="form-control">
+              <select name="status" ngModel class="form-control">
+                <option value="Active">Active</option>
+                <option value="Delisted">Delisted</option>
+              </select>
             </div>
 
             <div class="row" id="form-box">

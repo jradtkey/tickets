@@ -23,7 +23,7 @@ export class OwnerCreateComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.ownerService.getOwners();
-    this.ownersSub = this.ownerService.getOwnerUpdateListener()
+    this.ownersSub = this.ownerService.getOwnersUpdateListener()
       .subscribe((owners: Owner[]) => {
         this.owners = owners;
       });

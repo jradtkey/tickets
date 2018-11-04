@@ -13,9 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class OwnerComponent implements OnInit, OnDestroy {
   navigationSubscription;
   constructor(public ownerService: OwnerService, private route: ActivatedRoute, private router: Router) {}
-
-  owner: Owner;
-  // private ownerSub: Subscription;
+  private ownerSub: Subscription;
+  owner;
   dropdown = 0;
   modal = false;
   modalType = '';
@@ -34,6 +33,12 @@ export class OwnerComponent implements OnInit, OnDestroy {
       });
     }
     else {this.owner = this.ownerService.owner}
+
+    this.ownerSub = this.ownerService.getOwnerUpdateListener()
+      .subscribe(owner => {
+        console.log("ownerSub:", owner);
+        this.owner = owner;
+      });
   }
 
   openModal(type, id){
@@ -59,24 +64,32 @@ export class OwnerComponent implements OnInit, OnDestroy {
     }
   }
 
-  editContact(contactForm, id) {
+  editContact(contactForm: NgForm, id) {
     console.log(contactForm);
     console.log(id)
     this.ownerService.updateOwnerContact(contactForm, id, this.owner.contacts, this.owner.properties, this.owner.notes, this.owner.createdAt);
     this.close();
+    contactForm.resetForm();
   }
 
-  addProperty(addPropertyForm, id) {
+  addOwnerContact(form, id) {
+    this.ownerService.addContact(form, id)
+  }
+
+  addProperty(addPropertyForm: NgForm, id) {
     console.log("owner id:", id);
     console.log("form:", addPropertyForm);
     this.ownerService.addProperty(addPropertyForm, id);
     this.close();
+    addPropertyForm.resetForm();
   }
 
-  editProperty(form, id){
+  editProperty(form: NgForm, id){
     console.log(form)
     console.log(id)
     this.ownerService.editProperty(form, id);
+    this.close();
+    form.resetForm();
   }
 
   deleteOwner(id){
@@ -85,7 +98,7 @@ export class OwnerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-  // this.ownerSub.unsubscribe();
+  this.ownerSub.unsubscribe();
   }
 
 }

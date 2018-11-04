@@ -17,6 +17,7 @@ export class OwnerService {
   private ownerUpdated = new Subject<Owner[]>();
   owner;
   ownerId = '';
+  propertyId = '';
 
   getOwners(){
     this.http.get<{message: string, owners: any}>('http://localhost:3000/api/owners')
@@ -40,8 +41,12 @@ export class OwnerService {
       })
   }
 
-  getOwnerUpdateListener(){
+  getOwnersUpdateListener(){
     return this.ownersUpdated.asObservable();
+  }
+
+  getOwnerUpdateListener(){
+    return this.ownerUpdated.asObservable();
   }
 
   async showOwner(id) {
@@ -98,11 +103,34 @@ export class OwnerService {
       .subscribe((response => {
         console.log("response", response);
         this.owner = response;
-        // const updatedTickets = [...this.tickets];
-        // const oldTicketIndex = updatedTickets.findIndex(t => t.id === ticket.id);
-        // updatedTickets[oldTicketIndex] = ticket;
-        // this.tickets = updatedTickets;
-        // this.ticketsUpdated.next([...this.tickets]);
+        this.ownerUpdated.next(this.owner);
+      }))
+  }
+
+  addContact(form, id){
+    var contact = {
+      name: form.value.name,
+      phone: form.value.phone,
+      email: form.value.email
+    }
+    this.owner.contacts.push(contact)
+    const owner: Owner = {
+      id: id,
+      name: this.owner.name,
+      phone: this.owner.phone,
+      email: this.owner.email,
+      accountType: this.owner.accountType,
+      commission: this.owner.commission,
+      contacts: this.owner.contacts,
+      properties: this.owner.properties,
+      notes: this.owner.notes,
+      createdAt: this.owner.createdAt
+    }
+    this.http.put('http://localhost:3000/api/owners/' + id, owner)
+      .subscribe((response => {
+        console.log("response", response);
+        this.owner = response;
+        this.ownerUpdated.next(this.owner);
       }))
   }
 
@@ -142,49 +170,60 @@ export class OwnerService {
     this.http.put('http://localhost:3000/api/owners/' + id, owner)
       .subscribe((response => {
         console.log("response", response);
-        this.owner = response;
-        // const updatedTickets = [...this.tickets];
-        // const oldTicketIndex = updatedTickets.findIndex(t => t.id === ticket.id);
-        // updatedTickets[oldTicketIndex] = ticket;
-        // this.tickets = updatedTickets;
-        // this.ticketsUpdated.next([...this.tickets]);
+        this.ownerUpdated.next(this.owner);
       }))
-    // console.log(owner)
   }
 
   editProperty(form, id) {
+    console.log(this.owner)
     var properties = this.owner.properties
-    console.log(properties)
+    var oldProperty;
     for (let key of this.owner.properties) {
       if (key._id == id) {
-        const property = {
-          _id: key._id,
-          title: form.value.title,
-          addressStreet: form.value.street,
-          addressCity: form.value.city,
-          addressState: form.value.state,
-          addressZip: form.value.zip_code,
-          status: form.value.status,
-          owner_airbnb_link: form.value.owner_airbnb_link,
-          owner_booking_link: form.value.owner_booking_link,
-          owner_tripAdvisor_link: form.value.owner_tripAdvisor_link,
-          owner_vrboHomeAway_link: form.value.owner_vrboHomeAway_link,
-          owner_other_links: key.owner_other_links,
-          vj_airbnb_link: form.value.vj_airbnb_link,
-          vj_booking_link: form.value.vj_booking_link,
-          vj_tripAdvisor_link: form.value.vj_tripAdvisor_link,
-          vj_vrboHomeAway_link: form.value.vj_vrboHomeAway_link,
-          vj_other_links: key.vj_other_links,
-          createdAt: key.createdAt
-        }
-        this.owner.properties.push(property);
-        const updatedProperties = this.owner.properties.filter(property => key._id === id);
-        this.owner.properties = updatedProperties;
-        properties = this.owner.this.owner.properties;
+        oldProperty = key;
       }
     }
-
-    console.log(properties)
+    const property = {
+      _id: oldProperty._id,
+      title: form.value.title,
+      addressStreet: form.value.street,
+      addressCity: form.value.city,
+      addressState: form.value.state,
+      addressZip: form.value.zip_code,
+      status: form.value.status,
+      owner_airbnb_link: form.value.owner_airbnb_link,
+      owner_booking_link: form.value.owner_booking_link,
+      owner_tripAdvisor_link: form.value.owner_tripAdvisor_link,
+      owner_vrboHomeAway_link: form.value.owner_vrboHomeAway_link,
+      owner_other_links: oldProperty.owner_other_links,
+      vj_airbnb_link: form.value.vj_airbnb_link,
+      vj_booking_link: form.value.vj_booking_link,
+      vj_tripAdvisor_link: form.value.vj_tripAdvisor_link,
+      vj_vrboHomeAway_link: form.value.vj_vrboHomeAway_link,
+      vj_other_links: oldProperty.vj_other_links,
+      createdAt: oldProperty.createdAt
+    }
+    const oldPropertyIndex = properties.findIndex(p => p._id === property._id);
+    properties[oldPropertyIndex] = property;
+    this.owner.properties = properties;
+    const owner: Owner = {
+      id: this.owner._id,
+      name: this.owner.name,
+      phone: this.owner.phone,
+      email: this.owner.email,
+      accountType: this.owner.accountType,
+      commission: this.owner.commission,
+      contacts: this.owner.contacts,
+      properties: this.owner.properties,
+      notes: this.owner.notes,
+      createdAt: null
+    }
+    this.http.put('http://localhost:3000/api/owners/' + this.owner._id, owner)
+      .subscribe((response => {
+        console.log("response", response);
+        this.owner = response;
+        this.ownerUpdated.next(this.owner);
+      }))
   }
 
   deleteOwner(ownerId: string) {

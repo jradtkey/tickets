@@ -13,6 +13,10 @@ li {
   float: left;
 }
 
+a {
+  cursor: pointer;
+}
+
 #search {
   display: block;
   text-align: right;
