@@ -74,6 +74,8 @@ export class OwnerComponent implements OnInit, OnDestroy {
 
   addOwnerContact(form, id) {
     this.ownerService.addContact(form, id)
+    this.close();
+    form.resetForm();
   }
 
   addProperty(addPropertyForm: NgForm, id) {
