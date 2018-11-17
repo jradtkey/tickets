@@ -5,8 +5,8 @@
       <label >Status</label>
       <select>
         <option>Unresolved</option>
-        <option>Awaiting owner approval</option>
-        <option>Awaiting guest approval</option>
+        <option>Awaiting owner response</option>
+        <option>Awaiting guest response</option>
         <option>Booked</option>
         <option>Lost</option>
         <option>Canceled</option>
@@ -25,8 +25,14 @@
         <option>Airbnb - Owner</option>
         <option>VRBO - VJ</option>
         <option>VRBO - Owner</option>
-        <option>HomeAway</option>
-        <option>TripAdvisor</option>
+        <option>HomeAway - Owner</option>
+        <option>TripAdvisor - VJ</option>
+        <option>TripAdvisor - Owner</option>
+        <option>Booking.com - VJ</option>
+        <option>Booking.com - Owner</option>
+        <option>Owner's Website</option>
+        <option>Offline</option>
+        <option>Other</option>
       </select>
       <button type="button" class="btn2">Update</button>
     </div>
@@ -37,9 +43,25 @@
   <form (submit)="onCreateTicket(ticketForm)" #ticketForm="ngForm" name="newTicket">
     <div class="row">
 
-
       <div id="form-box" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-        <label>Platform:</label><br>
+        <mat-form-field>
+          <mat-select placeholder="Platform" [(ngModel)]="selectedPlatform" name="platform">
+            <mat-option *ngFor="let platform of platforms" [value]="platform.value">
+              {{platform.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Inquiry Type" [(ngModel)]="selectedInquiryType" name="inquiryType">
+            <mat-option *ngFor="let type of inquiryTypes" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput ngModel #guestFirstName="ngModel" name="guestFirstName" placeholder="Guest Name">
+        </mat-form-field>
+        <!-- <label>Platform:</label><br>
         <select class="form-control" name="platform" ngModel>
           <option value="Airbnb - VJ">Airbnb - VJ</option>
           <option value="Airbnb - Owner">Airbnb - Owner</option>
@@ -58,24 +80,53 @@
           <option value="Inquiry">Inquiry</option>
           <option value="Booking Request">Booking Request</option>
           <option value="Instant Booking">Instant Booking</option>
-        </select>
+        </select> -->
       </div>
 
       <div id="form-box" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-        <label>Guest Name:</label>
+
+        <mat-form-field>
+          <input aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="first" placeholder="Owner">
+          <mat-autocomplete #first="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions1|async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+          <input aria-label="Number" matInput [formControl]="otherControl" [matAutocomplete]="second" placeholder="Property">
+          <mat-autocomplete #second="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions2| async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <!-- <label>Guest Name:</label>
         <input name="guest_name" ngModel class="form-control" required #guestFirstName="ngModel" placeholder="required">
         <label>Property Address:</label>
         <input name="property" ngModel class="form-control" required #property="ngModel" placeholder="required">
         <label>Property Owner:</label>
-        <input name="property_owner" ngModel class="form-control" required #propertyOwner="ngModel" placeholder="required">
+        <input name="property_owner" ngModel class="form-control" required #propertyOwner="ngModel" placeholder="required"> -->
       </div>
 
       <div id="form-box" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-        <label>Check In:</label>
+
+        <mat-form-field>
+          <input matInput [matDatepicker]="check_in" placeholder="Check In">
+          <mat-datepicker-toggle matSuffix [for]="check_in"></mat-datepicker-toggle>
+          <mat-datepicker #check_in></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="check_out" placeholder="Check Out">
+          <mat-datepicker-toggle matSuffix [for]="check_out"></mat-datepicker-toggle>
+          <mat-datepicker #check_out></mat-datepicker>
+        </mat-form-field>
+        <!-- <label>Check In:</label>
         <input name="check_in" ngModel class="form-control" type="date">
         <label>Check Out:</label>
         <input name="check_out" ngModel class="form-control" type="date">
-        <button type="submit" class="btn1">Create Inquiry   <i class="fas fa-plus"></i></button>
+        <button type="submit" class="btn1">Create Inquiry   <i class="fas fa-plus"></i></button> -->
       </div>
 
     </div>

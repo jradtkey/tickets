@@ -8,12 +8,48 @@ import { FormControl } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 
+export interface Platforms {
+  value: string;
+  viewValue: string;
+}
+
+export interface InquiryType {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-ticket-list',
   templateUrl: './ticket-list.component.html',
   styleUrls: ['./ticket-list.component.css']
 })
 export class TicketListComponent implements OnInit, OnDestroy {
+
+  platforms: Platforms[] = [
+    {value: 'airbnb-vj-0', viewValue: 'Airbnb - VJ'},
+    {value: 'airbnb-owner-1', viewValue: 'Airbnb - Owner'},
+    {value: 'vrbo-vj-2', viewValue: 'VRBO - VJ'},
+    {value: 'vrbo-owner-3', viewValue: 'VRBO - Owner'},
+    {value: 'homeaway-owner-4', viewValue: 'HomeAway - Owner'},
+    {value: 'tripadvisor-vj-5', viewValue: 'TripAdvisor - VJ'},
+    {value: 'tripadvisor-owner-6', viewValue: 'TripAdvisor - Owner'},
+    {value: 'booking.com-vj-7', viewValue: 'Booking.com - VJ'},
+    {value: 'booking.com-owner-8', viewValue: 'Booking.com - Owner'},
+    {value: 'ownersite-owner-9', viewValue: "Owner's Site"},
+    {value: 'other-vj-10', viewValue: 'Other - VJ'},
+    {value: 'other-owner-11', viewValue: 'Owner - Other'},
+    {value: 'offline-11', viewValue: 'Offline'}
+  ];
+  selectedPlatform: string;
+
+  inquiryTypes: InquiryType[] = [
+    {value: 'inquiry-0', viewValue: 'Inquiry'},
+    {value: 'booking-request-1', viewValue: 'Booking Request'},
+    {value: 'instant-booking-2', viewValue: 'Instant Booking'}
+  ];
+  selectedInquiryType: string;
+
+  check_in = new Date();
 
   tickets: Ticket[] = [];
   ticket: Ticket;
@@ -22,6 +58,16 @@ export class TicketListComponent implements OnInit, OnDestroy {
   private ticketsSub: Subscription;
   private authStatusSub: Subscription;
   user;
+
+  myControl = new FormControl();
+  otherControl = new FormControl();
+
+  options1: string[] = ['One', 'Two', 'Three'];
+  options2: string[] = ['Four', 'Five', 'Six'];
+
+  filteredOptions1: Observable<string[]>;
+  filteredOptions2: Observable<string[]>;
+
 
 
 
@@ -34,6 +80,21 @@ export class TicketListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+
+    this.filteredOptions1 = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+
+    this.filteredOptions2 = this.otherControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter2(value))
+      );
+
+
+
 
     this.userService.getUser().then(name => {
       this.user = this.userService.userName
@@ -53,6 +114,19 @@ export class TicketListComponent implements OnInit, OnDestroy {
         this.userId = this.userService.getUserId();
       });
   }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options1.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  private _filter2(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options2.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
 
   toggleNotes(ticketId){
     if (this.dropdown != ticketId) {

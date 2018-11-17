@@ -10,7 +10,8 @@ import { FilterComponent } from './filter/filter.component';
 import { TicketListComponent } from './ticket-list/ticket-list.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatExpansionModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule } from "@angular/material";
+import { MatToolbarModule, MatExpansionModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule, MatSelectModule, MatNativeDateModule } from "@angular/material";
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { PropertyCreateComponent } from './property-create/property-create.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { OwnerCreateComponent } from './owner-create/owner-create.component';
@@ -44,7 +45,10 @@ import { OwnerComponent } from './owner/owner.component';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
