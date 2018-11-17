@@ -1,0 +1,36 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  padding-left: 50px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.box {
+  display: inline-block;
+  width: 100px;
+  height: 1000px;
+  border: 1px dotted red;
+}
+
+.box2 {
+  outline: 1px dotted blue;
+  display: inline-block;
+}
+
+#options {
+  border: 1px dotted red;
+}
+
+select {
+  width: 100%;
+  background-color: none;
+  border: none;
+}
+
+option:hover {
+  background-color: grey;
+}

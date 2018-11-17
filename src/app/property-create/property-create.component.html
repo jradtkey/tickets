@@ -1,3 +1,26 @@
-<p>
-  property-create works!
-</p>
+<form>
+  <mat-form-field>
+    <input aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="first">
+    <mat-autocomplete #first="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions1|async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field>
+    <input aria-label="Number" matInput [formControl]="otherControl" [matAutocomplete]="second">
+    <mat-autocomplete #second="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions2| async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field>
+    <input aria-label="Number" matInput [formControl]="anotherControl" [matAutocomplete]="third">
+    <mat-autocomplete #third="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions3 | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

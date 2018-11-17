@@ -33,17 +33,32 @@
   </div>
 </aside>
 
-<div id="form" *ngIf="userIsAuthenticated">
-
+<div *ngIf="userIsAuthenticated">
   <form (submit)="onCreateTicket(ticketForm)" #ticketForm="ngForm" name="newTicket">
     <div class="row">
 
 
       <div id="form-box" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-        <label>Platform:</label>
-        <input name="platform" ngModel class="form-control">
-        <label>Inquiry Type:</label>
-        <input name="inquiry_type" ngModel class="form-control">
+        <label>Platform:</label><br>
+        <select class="form-control" name="platform" ngModel>
+          <option value="Airbnb - VJ">Airbnb - VJ</option>
+          <option value="Airbnb - Owner">Airbnb - Owner</option>
+          <option value="VRBO - VJ">VRBO - VJ</option>
+          <option value="VRBO - Owner">VRBO - Owner</option>
+          <option value="HomeAway - Owner">HomeAway - Owner</option>
+          <option value="TripAdvisor - VJ">TripAdvisor - VJ</option>
+          <option value="TripAdvisor - Owner">TripAdvisor - Owner</option>
+          <option value="Booking.com">Booking.com</option>
+          <option value="Other - VJ">Other - VJ</option>
+          <option value="Other - Owner">Other - Owner</option>
+          <option value="Offline">Offline</option>
+        </select>
+        <label>Inquiry Type:</label><br>
+        <select class="form-control" name="inquiry_type" ngModel>
+          <option value="Inquiry">Inquiry</option>
+          <option value="Booking Request">Booking Request</option>
+          <option value="Instant Booking">Instant Booking</option>
+        </select>
       </div>
 
       <div id="form-box" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
@@ -62,10 +77,6 @@
         <input name="check_out" ngModel class="form-control" type="date">
         <button type="submit" class="btn1">Create Inquiry   <i class="fas fa-plus"></i></button>
       </div>
-
-
-
-
 
     </div>
   </form>
@@ -128,6 +139,9 @@
   </div>
 
 </div>
+
+
+<!-- MODAL FORM -->
 
 <div id="myModal" class="modal" *ngIf="modal == true">
     <div class="modal-content">

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -10,13 +10,14 @@ import { FilterComponent } from './filter/filter.component';
 import { TicketListComponent } from './ticket-list/ticket-list.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatExpansionModule } from "@angular/material";
+import { MatToolbarModule, MatExpansionModule, MatInputModule, MatFormFieldModule, MatAutocompleteModule } from "@angular/material";
 import { PropertyCreateComponent } from './property-create/property-create.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { OwnerCreateComponent } from './owner-create/owner-create.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthInterceptor } from './auth/interceptor';
-import { OwnerComponent } from './owner/owner.component'
+import { OwnerComponent } from './owner/owner.component';
+
 
 
 @NgModule({
@@ -39,7 +40,11 @@ import { OwnerComponent } from './owner/owner.component'
     BrowserAnimationsModule,
     MatToolbarModule,
     MatExpansionModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatAutocompleteModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

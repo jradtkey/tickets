@@ -107,6 +107,16 @@ select {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;

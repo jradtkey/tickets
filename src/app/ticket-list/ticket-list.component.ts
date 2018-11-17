@@ -4,6 +4,9 @@ import { NgForm } from '@angular/forms';
 import { Ticket } from '../ticket.model';
 import { TicketService } from '../ticket.service';
 import { UserService } from '../user.service';
+import { FormControl } from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-ticket-list',
@@ -21,6 +24,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
   user;
 
 
+
   constructor(public ticketService: TicketService, private userService: UserService) { }
 
   ticketId = '';
@@ -30,6 +34,7 @@ export class TicketListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+
     this.userService.getUser().then(name => {
       this.user = this.userService.userName
     });

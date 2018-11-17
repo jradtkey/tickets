@@ -4,7 +4,7 @@ const router = express.Router();
 const checkAuth = require("../middleware/check-auth");
 
 router.post("", checkAuth, (req, res, next) => {
-  console.log(req.body);
+
   const ticket = new Ticket({
     platform: req.body.platform,
     inquiryType: req.body.inquiryType,
